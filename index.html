@@ -37,13 +37,13 @@
         Your browser does not support the video tag.
     </video>
 
-    <audio id="audio" autoplay>
-        <source src="https://raw.githubusercontent.com/x01dev/fishy/main/barreta.mp3" type="audio/mp3">
+    <audio id="audio" controls>
+        <source src="baretta.mp3" type="audio/mp3">
         Your browser does not support the audio tag.
     </audio>
 
     <script>
-        // Ensure the audio plays automatically when the page loads
+        // Play audio once when the page loads
         const audio = document.getElementById('audio');
         audio.play();
     </script>
