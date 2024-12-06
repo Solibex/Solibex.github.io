@@ -21,17 +21,25 @@
             margin: 0;
             overflow: hidden;
         }
-    .container {
-        text-align: center;
-        width: 97vw;
-        height: 95vh;
-        padding: 30px;
-        border-radius: 15px;
-        background: rgba(0, 0, 0, 0.6);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        margin: auto; 
-}
-
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 80vw;
+            height: 80vh;
+            padding: 30px;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .box {
+            width: 30%;
+            height: 100px;
+            margin: 10px;
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
         .title {
             font-size: 3rem;
@@ -39,6 +47,8 @@
             text-transform: uppercase;
             text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
             margin-bottom: 20px;
+            width: 100%;
+            text-align: center;
         }
         .name {
             font-size: 2rem;
@@ -46,6 +56,8 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             font-weight: 500;
             margin-bottom: 30px;
+            text-align: center;
+            width: 100%;
         }
         .button {
             padding: 12px 30px;
@@ -58,6 +70,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 500;
+            text-align: center;
         }
         .button:hover {
             background-color: #26304B;
@@ -73,6 +86,12 @@
     <div class="container">
         <div class="title">The Best Fallen Script</div>
         <div class="name">FISHY</div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
         <a href="https://discord.gg/hzWPtfuDG8" target="_blank">
             <button class="button">Get Here</button>
         </a>
