@@ -28,6 +28,7 @@
             border-radius: 10px;
             background: rgba(0, 0, 0, 0.6);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
         }
         .title {
             font-size: 3rem;
@@ -63,6 +64,23 @@
         .button:active {
             transform: translateY(0);
         }
+        .black-box {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .box-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        .box-container .black-box {
+            width: 45%;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -72,6 +90,10 @@
         <a href="https://discord.gg/hzWPtfuDG8" target="_blank">
             <button class="button">Get Here</button>
         </a>
+        <div class="box-container">
+            <div class="black-box">Adding videos soon</div>
+            <div class="black-box">Adding videos soon</div>
+        </div>
     </div>
 </body>
 </html>
