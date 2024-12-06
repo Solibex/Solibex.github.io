@@ -3,39 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video and Audio Player</title>
-    <style>
-        /* Make the video take up the whole screen */
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-        }
-        video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        audio {
-            display: none;
-        }
-    </style>
+    <title>Autoplay Audio and Video</title>
 </head>
 <body>
-    <!-- Video -->
-    <video autoplay loop muted>
-        <source src="https://drive.google.com/uc?export=download&id=1ymq_BMx9gg5n2oYWH2kGe4mJa7sVs0n_" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    
-    <!-- Audio -->
+    <!-- Audio Player -->
     <audio autoplay>
-        <source src="https://drive.google.com/uc?export=download&id=1yy8nmU9G5d06RCK0RFRca8fTXNNxkyPo" type="audio/mpeg">
+        <source src="https://github.com/x01dev/fishy/blob/main/barreta.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
+
+    <!-- Video Player -->
+    <video autoplay loop muted>
+        <source src="https://github.com/x01dev/fishy/blob/main/zz.mp4" type="video/mp4">
+        Your browser does not support the video element.
+    </video>
 </body>
 </html>
