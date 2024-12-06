@@ -3,6 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BEST FALLEN SCRIPT</title>
+    <title>Landing Page</title>
+    <!-- Link to raw GitHub CSS file -->
+    <link rel="stylesheet" href="https://raw.githubusercontent.com/x01dev/fishy/main/styles.css">
 </head>
 <body>
+    <div class="container">
+        <header class="header">
+            <h1>Fishy | Alpha Sigma</h1>
+        </header>
+        <div class="menu">
+            <div class="tab active">Main</div>
+            <div class="tab">Visuals</div>
+            <div class="tab">Player</div>
+            <div class="tab">Misc</div>
+            <div class="tab">Settings</div>
+        </div>
+        <div class="content">
+            <div class="section">
+                <h2>Silent Aim</h2>
+                <label>
+                    <input type="checkbox"> Silent Aim
+                </label>
+                <label>
+                    <input type="checkbox"> Prediction
+                </label>
+                <label>
+                    <input type="checkbox"> Target NPCs
+                </label>
+                <label>
+                    <input type="checkbox"> FOV Circles
+                </label>
+                <div class="slider-group">
+                    <label for="fov">FOV Circle Size</label>
+                    <input type="range" id="fov" name="fov" min="0" max="100">
+                </div>
+                <label>
+                    <input type="checkbox"> Snapline
+                </label>
+                <label>
+                    <input type="checkbox"> Prediction Dot
+                </label>
+            </div>
+            <div class="section">
+                <h2>Gun Mods</h2>
+                <label><input type="checkbox"> No Recoil</label>
+                <label><input type="checkbox"> No Spread</label>
+                <label><input type="checkbox"> Instant Hit</label>
+                <label><input type="checkbox"> No Visual Bob</label>
+                <label><input type="checkbox"> No Tool Cooldown</label>
+                <label><input type="checkbox"> No Slowdown</label>
+                <label><input type="checkbox"> Instant Swap</label>
+                <label><input type="checkbox"> Always Automatic</label>
+                <label><input type="checkbox"> No Bullet Drop</label>
+                <label><input type="checkbox"> Always Headshot</label>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
