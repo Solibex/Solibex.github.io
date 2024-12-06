@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background: #1e1e2e;
+    background: #0d0d1f; /* Changed to a very dark blue */
     color: #fff;
     margin: 0;
     padding: 0;
@@ -29,48 +29,4 @@ body {
 .tab {
     flex: 1;
     text-align: center;
-    padding: 10px;
-    background: #33334a;
-    margin: 0 5px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background 0.3s;
-}
-
-.tab.active, .tab:hover {
-    background: #44445a;
-}
-
-.content {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.section {
-    width: 45%;
-    margin-bottom: 20px;
-    background: #2e2e44;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-}
-
-.section h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #76b0ff;
-}
-
-label {
-    display: block;
-    margin: 8px 0;
-}
-
-.slider-group {
-    margin: 10px 0;
-}
-
-input[type="range"] {
-    width: 100%;
-}
+    padding:
