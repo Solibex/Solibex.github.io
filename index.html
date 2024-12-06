@@ -5,52 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Best Fallen Script</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             background-color: #11101F;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            color: white;
             margin: 0;
+            overflow: hidden;
         }
         .container {
             text-align: center;
-            color: white;
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
         .title {
             font-size: 3rem;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px black;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+            margin-bottom: 20px;
         }
         .name {
             font-size: 2rem;
             color: #1e90ff;
-            text-shadow: 2px 2px 4px black;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            font-weight: 500;
+            margin-bottom: 30px;
         }
         .button {
-            margin-top: 20px;
-            padding: 10px 20px;
+            padding: 12px 30px;
             background-color: #1e90ff;
             color: white;
             font-size: 1.2rem;
             border: none;
-            cursor: pointer;
             border-radius: 5px;
-            box-shadow: 2px 2px 4px black;
-            transition: background-color 0.3s ease;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
         .button:hover {
             background-color: #26304B;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+        }
+        .button:active {
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">The Best Fallen Script</div>
-        <div class="name">FISHY</div>
+        <div class="name">By Fishy</div>
         <a href="https://discord.gg/hzWPtfuDG8" target="_blank">
-            <button class="button">BUY THE BEST FALLEN SCRIPT</button>
+            <button class="button">Get Your Best Script Now</button>
         </a>
     </div>
 </body>
