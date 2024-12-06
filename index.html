@@ -3,115 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Best Fallen Script</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            background-color: #11101F;
-            font-family: 'Segoe UI', Georgia, Georgia, Georgia, Georgia;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: white;
-            margin: 0;
-            overflow: hidden;
-            flex-direction: column;
-        }
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            width: 97vw;
-            height: 88vh;
-            padding: 30px;
-            border-radius: 15px;
-            background: rgba(0, 0, 0, 0.6);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            margin-top: 120px; /* Add space for the fixed image */
-        }
-        .box {
-            width: 30%;
-            height: 100px;
-            margin: 10px;
-            background-color: #222;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-        .title {
-            font-size: 3rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
-            margin-bottom: 20px;
-            width: 100%;
-            text-align: center;
-        }
-        .name {
-            font-size: 2rem;
-            color: #0a47a1;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            font-weight: 500;
-            margin-bottom: 30px;
-            text-align: center;
-            width: 100%;
-        }
-        .button {
-            padding: 12px 30px;
-            background-color: #004f8b;
-            color: white;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 5px;
-            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            text-align: center;
-        }
-        .button:hover {
-            background-color: #26304B;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
-        }
-        .button:active {
-            transform: translateY(0);
-        }
-        img {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 300px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-    </style>
+    <title>Montela</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="container">
-    <img src="https://www.dropbox.com/scl/fi/u33m15xbj8t2bdj4ohxg3/fishy.png?rlkey=4xbwvu9cckgwbdggkgkfkh256&st=vmh3hz2q&dl=1" alt="Fishy Image">
+        <div class="wrapper">
+            <div class="card text-center">
+                <h1 class="title">Instagram</h1>
+                <i class="fa-brands fa-instagram fa-bounce icons"></i>
+                <p class="description">Pat.</p>
+                <Button class="btn">Follow</Button>
+            </div>
+            <div class="card text-center">
+                <h1 class="title">Tiktok</h1>
+                <i class="fa-brands fa-tiktok fa-bounce icons"></i>
+                <p class="description">Montela_g</p>
+                <Button class="btn">Follow</Button>
+            </div>
+            <div class="card text-center">
+                <h1 class="title">Steam</h1>
+                <i class="fa-brands fa-steam fa-bounce icons"></i>
+                <p class="description">Ujang Sedot</p>
+                <Button class="btn">Follow</Button>
 
-        <div class="title">The Best Fallen Script</div>
-        <div class="name">FISHY</div>
-        <div class="name"> </div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <a href="https://discord.gg/hzWPtfuDG8" target="_blank">
-            <button class="button">Get Here</button>
-         </a>
-        <div class="box"></div>
-        </a>
+            </div>
+            <div class="card text-center">
+                <h1 class="title">Discord</h1>
+                <i class="fa-brands fa-discord fa-bounce icons"></i>
+                <p class="description">Estevandor Server</p>
+                <a href="https://discord.gg/vfx9UnStAA">
+                    <Button class="btn">Follow</Button>
+                </a>
+            </div>
+        </div>
     </div>
 </body>
 </html>
