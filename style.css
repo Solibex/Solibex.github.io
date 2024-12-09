@@ -12,13 +12,15 @@ body {
     left: calc(50% - 4.5%); 
     text-align: center;
 }
+
 .discord {
     color: rgb(117, 146, 230);
     font-family: 'Fira Mono';
     font-size: 12px;
-    position: absolute;
-    right: 17.5%;
-    top: 2.5%;
+    position: fixed; 
+    bottom: 20px; 
+    left: 50%; 
+    transform: translateX(-50%); 
     width: 150px;
     text-align: center;
     background: none;
