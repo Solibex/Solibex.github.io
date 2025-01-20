@@ -92,7 +92,7 @@ function animate() {
         updateParticles(beatIntensity);
 
         const icon = document.getElementById('icon').querySelector('img');
-        if (beatIntensity > 0.5) {
+        if (beatIntensity > 0.1) {
             icon.style.filter = `drop-shadow(0 0 ${20 * beatIntensity}px rgba(19, 128, 225, 1))`;
         } else {
             icon.style.filter = 'none';
