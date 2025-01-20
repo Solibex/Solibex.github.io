@@ -97,6 +97,11 @@ input::placeholder {
   background-color: darkred;
 }
 
+#hiddenKey {
+    display: none; /* Hides the element */
+}
+
+
 /* Scrollable content */
 .popup-content {
   max-height: 300px;
