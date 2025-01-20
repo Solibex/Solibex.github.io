@@ -47,6 +47,38 @@
         #discord-link img {
             width: 50px;
         }
+
+        /* Animated hyperlink button styling */
+        #info-button {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            font-size: 18px;
+            color: #fff;
+            background: linear-gradient(45deg, #19b0ff, #1e1e4a);
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #info-button:hover {
+            background: linear-gradient(45deg, #00d4ff, #1e1e4a);
+            transform: scale(1.1);
+        }
+
+        #info-button:active {
+            background: linear-gradient(45deg, #00c3e3, #1a1a40);
+        }
+
+        #info-button i {
+            margin-left: 5px;
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
@@ -62,6 +94,12 @@
 
     <a id="discord-link" href="https://discord.gg/xWGdPH47hk" target="_blank">
         <img src="discordimg.png" alt="Fish Community">
+    </a>
+
+    <!-- Info Button -->
+    <a href="features.html" id="info-button">
+        Features / Info
+        <i class="fas fa-info-circle"></i>
     </a>
 
     <canvas id="constellation"></canvas>
