@@ -41,6 +41,23 @@ function init() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const audioPlayer = document.getElementById('audio-player');
+    const songs = ['Baretta.mp3', 'Timeless.mp3'];
+    let i = 0;
+
+    audioPlayer.src = songs[i];
+    audioPlayer.play();
+
+    audioPlayer.addEventListener('ended', () => {
+        if (++i < songs.length) {
+            audioPlayer.src = songs[i];
+            audioPlayer.play();
+        }
+    });
+});
+
+
 function constellation() {
     ctx.clearRect(0, 0, width, height);
     ctx.lineWidth = 1;
