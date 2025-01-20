@@ -1,0 +1,120 @@
+/* Basic styling */
+body {
+  background-color: rgb(17, 16, 31); /* Background */
+  color: rgb(117, 146, 230); /* Text */
+  font-family: 'Courier New', monospace;
+  margin: 0;
+  padding: 20px;
+}
+
+#commandLine {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+#userInput {
+  background-color: rgb(31, 28, 54); /* Inline */
+  color: rgb(117, 146, 230); /* Text */
+  border: 1px solid rgb(35, 35, 35); /* Border */
+  outline: none;
+  font-family: 'Courier New', monospace;
+  width: 100%;
+  display: inline;
+  padding-left: 5px;
+}
+
+#outputContainer {
+  margin-top: 20px;
+}
+
+#initialMessage {
+  padding-left: 5px;
+}
+
+.cursor {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% {
+      opacity: 0;
+  }
+}
+
+input::placeholder {
+  color: rgb(135, 135, 135); /* TextInactive */
+}
+
+/* Fade out animation */
+.fade-out {
+  opacity: 0;
+  transition: opacity 2s ease-out;
+}
+
+/* Styling for risky command messages */
+.risky {
+  color: rgb(255, 0, 0); /* Risky */
+}
+
+/* Info Popup styling */
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(31, 28, 54);
+  color: rgb(117, 146, 230);
+  width: 60%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-in-out, visibility 0s 0.5s;
+  z-index: 10000;
+}
+
+/* Show popup */
+.popup.show {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Button styles */
+#closeButton {
+  background-color: rgb(255, 0, 0);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#closeButton:hover {
+  background-color: darkred;
+}
+
+/* Scrollable content */
+.popup-content {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Styling for images */
+.popup img {
+  max-width: 100%;
+  margin-top: 10px;
+}
+
+/* Vertical list styling for features and help options */
+.feature-list, .help-list {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+.feature-list li, .help-list li {
+  margin-bottom: 10px;
+}
