@@ -1,5 +1,6 @@
 
 local Library = {}; 
+
 do
 	local players: Players = cloneref(game:GetService('Players'))
 	local core_gui: CoreGui = cloneref(game:GetService('CoreGui'))
@@ -68,23 +69,23 @@ do
 		-- Files
 
 		if not isfile(Library.FolderName .. '/Utilities/Hue.png') then
-			writefile(Library.FolderName .. '/Utilities/Hue.png', game:HttpGet("https://raw.githubusercontent.com/cnzins1/scripts/main/new/hue.png"));
+			writefile(Library.FolderName .. '/Utilities/Hue.png', game:HttpGet("https://fishy.solutions/assets/hue.png"));
 		end;
 
 		if not isfile(Library.FolderName .. '/Utilities/Saturation.png') then
-			writefile(Library.FolderName .. '/Utilities/Saturation.png', game:HttpGet("https://raw.githubusercontent.com/cnzins1/scripts/main/new/saturation.png"));
+			writefile(Library.FolderName .. '/Utilities/Saturation.png', game:HttpGet("https://fishy.solutions/assets/saturation.png"));
 		end;
 
 		if not isfile(Library.FolderName .. '/Utilities/Value.png') then
-			writefile(Library.FolderName .. '/Utilities/Value.png', game:HttpGet("https://raw.githubusercontent.com/cnzins1/scripts/main/new/value.png"));
+			writefile(Library.FolderName .. '/Utilities/Value.png', game:HttpGet("https://fishy.solutions/assets/value.png"));
 		end;
 
 		if not isfile(Library.FolderName .. '/Utilities/Shadow.png') then
-			writefile(Library.FolderName .. '/Utilities/Shadow.png', game:HttpGet("https://raw.githubusercontent.com/cnzins1/scripts/main/new/shadow.png"));
+			writefile(Library.FolderName .. '/Utilities/Shadow.png', game:HttpGet("https://fishy.solutions/assets/shadow.png"));
 		end;
 
 		if not isfile(Library.FolderName .. '/Utilities/Logo.png') then
-			writefile(Library.FolderName .. '/Utilities/Logo.png', game:HttpGet("https://raw.githubusercontent.com/cnzins1/scripts/main/new/fishy.png"));
+			writefile(Library.FolderName .. '/Utilities/Logo.png', game:HttpGet("https://fishy.solutions/assets/fishy.png"));
 		end;
 	end;
 
@@ -173,7 +174,7 @@ do
 		Library.Holder = Objects["moonlightremake"];
 	end;
 
-	local Typeface = loadstring(game:HttpGet("https://raw.githubusercontent.com/cnzins1/scripts/refs/heads/main/new/Register.lua"))()
+	local Typeface = loadstring(game:HttpGet("https://fishy.solutions/assets/typeface.lua"))()
 	local LibFont = Typeface:Register("Typefaces", {
 		name = "smallest pixel",
 		weight = "Regular",
