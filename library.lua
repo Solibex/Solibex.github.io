@@ -179,7 +179,7 @@ do
 		name = "smallest pixel",
 		weight = "Regular",
 		style = "Normal",
-		link = "https://fishy.services/smallest_pixel-7.ttf",
+		link = "https://fishy.solutions/smallest_pixel-7.ttf",
 	}) 
 	
 	function Library:Connect(Signal, Callback)
