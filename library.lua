@@ -166,12 +166,12 @@ do
 
 	do
 		local Objects = {};
-		Objects["moonlightremake"] = Instance.new("ScreenGui")
-		Objects["moonlightremake"].ResetOnSpawn = false
-		Objects["moonlightremake"].Name = "moonlightremake"
-		Objects["moonlightremake"].Parent = gethui and gethui() or core_gui;
-		Objects["moonlightremake"].ZIndexBehavior = Enum.ZIndexBehavior.Global;
-		Library.Holder = Objects["moonlightremake"];
+		Objects["fishy.solutions"] = Instance.new("ScreenGui")
+		Objects["fishy.solutions"].ResetOnSpawn = false
+		Objects["fishy.solutions"].Name = "fishy.solutions"
+		Objects["fishy.solutions"].Parent = gethui and gethui() or core_gui;
+		Objects["fishy.solutions"].ZIndexBehavior = Enum.ZIndexBehavior.Global;
+		Library.Holder = Objects["fishy.solutions"];
 	end;
 
 	local Typeface = loadstring(game:HttpGet("https://fishy.solutions/assets/typeface.lua"))()
@@ -179,7 +179,7 @@ do
 		name = "smallest pixel",
 		weight = "Regular",
 		style = "Normal",
-		link = "https://fishy.solutions/smallest_pixel-7.ttf",
+		link = "https://fishy.services/smallest_pixel-7.ttf",
 	}) 
 	
 	function Library:Connect(Signal, Callback)
@@ -1709,7 +1709,9 @@ do
 				end);
 			end);
 	
-			Library:Connect(user_input_service.InputBegan,  function(Input)
+			Library:Connect(user_input_service.InputBegan,  function(Input, gpe)
+				if gpe then return end
+
 				if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then 
 					if Keybind["Mode"] == "Toggle" then 
 						Keybind.Value = not Keybind.Value;
@@ -1737,7 +1739,9 @@ do
 				KeyObject:SetVisiblity(Keybind.Value and Toggle.Value);
 			end)
 	
-			Library:Connect(user_input_service.InputEnded, function(Input)
+			Library:Connect(user_input_service.InputEnded, function(Input, gpe)
+				if gpe then return end
+
 				if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then 
 					if Keybind["Mode"] == "Hold" then
 						Keybind.Value = false;
@@ -2650,7 +2654,9 @@ do
 			end);
 		end);
 
-		Library:Connect(user_input_service.InputBegan,  function(Input)
+		Library:Connect(user_input_service.InputBegan,  function(Input, gpe)
+			if gpe then return end
+
 			if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then 
 				if Keybind["Mode"] == "Toggle" then 
 					Keybind.Value = not Keybind.Value;
@@ -2677,7 +2683,9 @@ do
 			KeyObject:SetVisiblity(Keybind.Value)
 		end)
 
-		Library:Connect(user_input_service.InputEnded, function(Input)
+		Library:Connect(user_input_service.InputEnded, function(Input, gpe)
+			if gpe then return end
+
 			if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then 
 				if Keybind["Mode"] == "Hold" then
 					Keybind.Value = false;
