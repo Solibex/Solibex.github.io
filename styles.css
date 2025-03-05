@@ -211,11 +211,17 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'Brush Script MT', cursive;
 }
 
 #info-button:hover {
     background: linear-gradient(45deg, #00d4ff, #1e1e4a);
     transform: scale(1.1);
+}
+
+#info-button {
+    font-family: 'Brush Script MT', cursive;
+
 }
 
 #info-button:active {
