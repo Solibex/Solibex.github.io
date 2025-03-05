@@ -1,0 +1,243 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(17, 16, 31);
+    overflow: hidden;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 1s ease;
+    position: relative;
+}
+
+#constellation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#animation-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#fish-icon {
+    position: absolute;
+    top: 13%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 130px;
+    height: 100px;
+    z-index: 2;
+    opacity: 1;
+}
+
+#wide-container {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1338px;
+    max-width: 100%;
+    height: 22%;
+    background-color: rgba(6, 38, 60, 0.9);
+    padding: 14px;
+    z-index: 1;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    border-radius: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+#wide-container .video-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+#wide-container iframe {
+    width: 320px;
+    height: 180px;
+    border-radius: 10px;
+}
+
+#discord-invite-button {
+    position: absolute;
+    bottom: 10%;
+    right: 5%;
+    z-index: 3;
+}
+
+#discord-invite-button button {
+    background: #7289DA;
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+#discord-invite-button button:hover {
+    background: #5b6cb7;
+    transform: scale(1.05);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.Discord {
+    position: absolute;
+    bottom: 95%;
+    right: 10px;
+    width: 50px;
+    z-index: 3;
+    background: none;
+}
+
+.Discord {
+    transition: transform 0.2s ease-in-out;
+}
+
+.Discord:hover {
+    transform: scale(1.1);
+}
+
+html, body {
+    height: 100%;
+}
+
+#cube-loader {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background-color: white;
+    z-index: 9999999;
+}
+
+#cube-loader .caption {
+    margin: 0 auto;
+}
+
+.cube-loader {
+    width: 73px;
+    height: 73px;
+    margin: 0 auto;
+    margin-top: 49px;
+    position: relative;
+    transform: rotateZ(45deg);
+}
+
+.cube {
+    position: relative;
+    transform: rotateZ(45deg);
+    width: 50%;
+    height: 50%;
+    float: left;
+    transform: scale(1.1);
+}
+
+.cube:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(52, 73, 94, 1.0);
+    animation: cube-loader 2.76s infinite linear both;
+    transform-origin: 100% 100%;
+}
+
+.loader-2 {
+    transform: scale(1.1) rotateZ(90deg);
+}
+
+.loader-3 {
+    transform: scale(1.1) rotateZ(180deg);
+}
+
+.loader-4 {
+    transform: scale(1.1) rotateZ(270deg);
+}
+
+.loader-2:before {
+    animation-delay: 0.35s;
+}
+
+.loader-3:before {
+    animation-delay: 0.69s;
+}
+
+.loader-4:before {
+    animation-delay: 1.04s;
+}
+#info-button {
+    z-index: 99999;
+    position: fixed;
+    top: 10px;
+    right: 80px;
+    font-size: 18px;
+    color: #fff;
+    background: linear-gradient(45deg, #19b0ff, #1e1e4a);
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#info-button:hover {
+    background: linear-gradient(45deg, #00d4ff, #1e1e4a);
+    transform: scale(1.1);
+}
+
+#info-button:active {
+    background: linear-gradient(45deg, #00c3e3, #1a1a40);
+}
+
+#info-button i {
+    margin-left: 5px;
+    font-size: 20px;
+}
+
+@keyframes cube-loader {
+    0%, 10% {
+        transform: perspective(136px) rotateX(-180deg);
+        opacity: 0;
+    }
+    25%, 75% {
+        transform: perspective(136px) rotateX(0deg);
+        opacity: 1;
+    }
+    90%, 100% {
+        transform: perspective(136px) rotateY(180deg);
+        opacity: 0;
+    }
+}
