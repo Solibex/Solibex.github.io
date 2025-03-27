@@ -84,7 +84,7 @@ svg {
 
 #discord-invite-button {
     position: absolute;
-    bottom: 10%;
+    bottom: 12%;
     right: 5%;
     z-index: 3;
 }
@@ -109,7 +109,7 @@ svg {
 
 .Discord {
     position: absolute;
-    bottom: 94%;
+    bottom: 110%;
     right: 10px;
     width: 50px;
     z-index: 3;
