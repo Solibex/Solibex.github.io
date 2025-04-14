@@ -13,6 +13,17 @@ do
 		xpcall(func, print)
 	end
 
+	local safe_get_custom_asset = function(path)
+		local success, result = pcall(getcustomasset, path)
+		
+		if success then
+			return result
+		else
+			warn('[fishy.solutions] library failed to load ', path, result)
+			return ""
+		end
+	end
+
 	Library = {
 		Accent = Color3.fromRGB(19, 128, 225);
 		Inline = Color3.fromRGB(31, 28, 54);
@@ -432,7 +443,7 @@ do
         Objects["logo"].ScaleType = Enum.ScaleType.Stretch
         Objects["logo"].BorderColor3 = Color3.fromRGB(0, 0, 0)
         Objects["logo"].AnchorPoint = Vector2.new(0, 0.5)
-        Objects["logo"].Image = getcustomasset(Library.FolderName .. "/Utilities/Logo.png");
+        Objects["logo"].Image = safe_get_custom_asset(Library.FolderName .. "/Utilities/Logo.png");
         Objects["logo"].BackgroundTransparency = 1
         Objects["logo"].Position = UDim2.new(0, -5, 0.5, -1)
         Objects["logo"].Name = "logo"
@@ -500,7 +511,7 @@ do
         Objects["shadow"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         Objects["shadow"].Size = UDim2.new(1, 25, 1, 25)
         Objects["shadow"].AnchorPoint = Vector2.new(0.5, 0.5)
-        Objects["shadow"].Image = getcustomasset(Library.FolderName .. "/Utilities/Shadow.png");
+        Objects["shadow"].Image = safe_get_custom_asset(Library.FolderName .. "/Utilities/Shadow.png");
         Objects["shadow"].BackgroundTransparency = 1
         Objects["shadow"].Position = UDim2.new(0.5, 0, 0.5, 0)
         Objects["shadow"].SliceScale = 0.75
@@ -812,7 +823,7 @@ do
 		Objects["shadow"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Objects["shadow"].Size = UDim2.new(1, 75, 1, 75)
 		Objects["shadow"].AnchorPoint = Vector2.new(0.5, 0.5)
-		Objects["shadow"].Image = getcustomasset(Library.FolderName .. "/Utilities/Shadow.png");
+		Objects["shadow"].Image = safe_get_custom_asset(Library.FolderName .. "/Utilities/Shadow.png");
 		Objects["shadow"].BackgroundTransparency = 1
 		Objects["shadow"].Position = UDim2.new(0.5, 0, 0.5, 0)
 		Objects["shadow"].SliceScale = 0.75
@@ -1375,7 +1386,7 @@ do
 			SubObjects["palette"].Parent = SubObjects["pickerwindow"]
 	
 			SubObjects["sat"] = Instance.new("ImageLabel")
-			SubObjects["sat"].Image = getcustomasset(Library.FolderName .. "/Utilities/Saturation.png");
+			SubObjects["sat"].Image = safe_get_custom_asset(Library.FolderName .. "/Utilities/Saturation.png");
 			SubObjects["sat"].BackgroundTransparency = 1
 			SubObjects["sat"].Name = "sat"
 			SubObjects["sat"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -1385,7 +1396,7 @@ do
 			SubObjects["sat"].Parent = SubObjects["palette"]
 	
 			SubObjects["val"] = Instance.new("ImageLabel")
-			SubObjects["val"].Image = getcustomasset(Library.FolderName .. "/Utilities/Value.png");
+			SubObjects["val"].Image = safe_get_custom_asset(Library.FolderName .. "/Utilities/Value.png");
 			SubObjects["val"].BackgroundTransparency = 1
 			SubObjects["val"].Name = "val"
 			SubObjects["val"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -1428,7 +1439,7 @@ do
 			SubObjects["hue"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 			SubObjects["hue"].AutoButtonColor = false
 			SubObjects["hue"].AnchorPoint = Vector2.new(1, 0)
-			SubObjects["hue"].Image = getcustomasset(Library.FolderName .. "/Utilities/Hue.png");
+			SubObjects["hue"].Image = safe_get_custom_asset(Library.FolderName .. "/Utilities/Hue.png");
 			SubObjects["hue"].Name = "hue"
 			SubObjects["hue"].Position = UDim2.new(1, -8, 0, 7)
 			SubObjects["hue"].Size = UDim2.new(0, 17, 0, 150)
@@ -1474,7 +1485,7 @@ do
 			SubObjects["shadow"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			SubObjects["shadow"].Size = UDim2.new(1, 75, 1, 75)
 			SubObjects["shadow"].AnchorPoint = Vector2.new(0.5, 0.5)
-			SubObjects["shadow"].Image = getcustomasset(Library.FolderName .. "/Utilities/Shadow.png");
+			SubObjects["shadow"].Image = safe_get_custom_asset(Library.FolderName .. "/Utilities/Shadow.png");
 			SubObjects["shadow"].BackgroundTransparency = 1
 			SubObjects["shadow"].Position = UDim2.new(0.5, 0, 0.5, 0)
 			SubObjects["shadow"].SliceScale = 0.75
