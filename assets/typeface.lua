@@ -67,7 +67,7 @@ function Typeface:Register(Path, Asset)
             assetId = getcustomasset(`{ Directory }/{ Name }.font`)
 		}
         for _, v in JSONFile.faces do
-            if v.name == Data.name then Registered = true end
+            if v.name == Data.name and v.assetId == Data.assetId then Registered = true end
         end
         if not Registered then
             table.insert(JSONFile.faces, Data)
