@@ -185,13 +185,8 @@ do
 		Library.Holder = Objects["fishy.solutions"];
 	end;
 
-	local Typeface = loadstring(game:HttpGet("https://fishy.solutions/assets/typeface.lua"))()
-	local LibFont = Typeface:Register("Typefaces", {
-		name = "minecraftia",
-		weight = "Regular",
-		style = "Normal",
-		link = "https://fishy.solutions/assets/minecraftia.ttf",
-	})
+	local fonts = loadstring(game:HttpGet("https://fishy.solutions/assets/typeface.lua"))()
+	local LibFont = fonts.load("minecraftia", 'https://fishy.solutions/assets/minecraftia.ttf')
 
 	Library.Font = LibFont
 	
