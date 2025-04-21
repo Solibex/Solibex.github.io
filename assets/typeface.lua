@@ -23,13 +23,13 @@ function fonts.load(name, link)
         makefolder(assets_directory)
     end
     
-    local font_path = string.format('%*/%*.font', directory, name)
+    local data_path = string.format('%*/%*.fontdata', directory, name)
     
-    if not isfile(font_path) then
+    if not isfile(data_path) then
         local success, result = pcall(game.HttpGet, game, link)
 
         if success then
-            writefile(font_path, result)
+            writefile(data_path, result)
         else
             return warn(string.format('fonts load failed to download link %*', link))
         end
@@ -39,11 +39,11 @@ function fonts.load(name, link)
         name = name,
         weight = 400,
         style = "normal",
-        assetId = getcustomasset(font_path)
+        assetId = getcustomasset(data_path)
     }
 
     local asset_json = http_service:JSONEncode({ name = name, faces = { data } })
-    local asset_path = string.format('%*/%*.font', assets_directory, name)
+    local asset_path = string.format('%*/%*.json', assets_directory, name)
 	writefile(asset_path, asset_json)
 
     return Font.new(getcustomasset(asset_path))
