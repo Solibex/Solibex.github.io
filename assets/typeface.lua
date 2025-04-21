@@ -47,37 +47,15 @@ function Typeface:Register(Path, Asset)
     if not isfile(`{ Directory }/{ Name }.font`) then
 		writefile(`{ Directory }/{ Name }.font`, game:HttpGet(Asset.link))
 	end
-    if not isfile(`{ Directory }/{ Asset.name }Families.json`) then 
-		local Data = { 
-			name = `{ Asset.weight } { Asset.style }`,
-			weight = Typeface.WeightNum[Asset.weight] or Typeface.WeightNum[string.gsub(Asset.weight, "%s+", "")],
-			style = string.lower(Asset.style),
-			assetId = getcustomasset(`{ Directory }/{ Name }.font`)
-		}
-		local JSONFile = Http:JSONEncode({ name = Name, faces = { Data } })
-        warn(`Registering { Asset.name } Typeface to "{ Path }"...`)
-		writefile(`{ Directory }/{ Asset.name }Families.json`, JSONFile)
-	else
-		local Registered = false
-        local JSONFile = Http:JSONDecode(readfile(`{ Directory }/{ Asset.name }Families.json`))
-		local Data = { 
-            name = `{ Asset.weight } { Asset.style }`,
-            weight = Typeface.WeightNum[Asset.weight] or Typeface.WeightNum[string.gsub(Asset.weight, "%s+", "")],
-            style = string.lower(Asset.style),
-            assetId = getcustomasset(`{ Directory }/{ Name }.font`)
-		}
-        for _, v in JSONFile.faces do
-            if v.name == Data.name and v.assetId == Data.assetId then Registered = true end
-        end
-        if not Registered then
-            table.insert(JSONFile.faces, Data)
-            JSONFile = Http:JSONEncode(JSONFile)
-            warn(`Registering { Asset.weight } { Asset.style } Typeface to "{ Directory }"...`)
-            writefile(`{ Directory }/{ Asset.name }Families.json`, JSONFile)
-        end
-        
-	end
-	Typeface.Typefaces[Name] = Typeface.Typefaces[Name] or Font.new(getcustomasset(`{ Directory }/{ Asset.name }Families.json`))
-    return Typeface.Typefaces[Name]
+    local Data = { 
+        name = `{ Asset.weight } { Asset.style }`,
+        weight = Typeface.WeightNum[Asset.weight] or Typeface.WeightNum[string.gsub(Asset.weight, "%s+", "")],
+        style = string.lower(Asset.style),
+        assetId = getcustomasset(`{ Directory }/{ Name }.font`)
+    }
+    local JSONFile = Http:JSONEncode({ name = Name, faces = { Data } })
+    warn(`Registering { Asset.name } Typeface to "{ Path }"...`)
+    writefile(`{ Directory }/{ Asset.name }Families.json`, JSONFile)
+    return Font.new(getcustomasset(`{ Directory }/{ Asset.name }Families.json`))
 end
 return Typeface
