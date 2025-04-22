@@ -35,6 +35,8 @@ function fonts.load(name, link)
         end
     end
 
+    repeat task.wait() until isfile(data_path)
+
     local data = {
         name = name,
         weight = 400,
