@@ -48,6 +48,8 @@ function fonts.load(name, link)
     local asset_path = string.format('%*/%*.json', assets_directory, name)
 	writefile(asset_path, asset_json)
 
+    repeat task.wait() until isfile(asset_path)
+
     return Font.new(getcustomasset(asset_path))
 end
 
