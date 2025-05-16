@@ -8,11 +8,6 @@ do
 	local user_input_service: UserInputService = cloneref(game:GetService('UserInputService'))
 	local http_service: HttpService = cloneref(game:GetService('HttpService'))
 	local run_service: RunService = cloneref(game:GetService('RunService'))
-	
-	local callback_stuff = function(func) -- basically a function that i made so that i replace pcalls easier..
-		xpcall(func, print)
-	end
-
 	local safe_get_custom_asset = function(path)
 		local success, result = pcall(getcustomasset, path)
 		
@@ -43,6 +38,7 @@ do
 		Sections = {};
 		Connections = {};
 		Flags = {};
+		Values = {};
 		Registry = {};
 		RegistryMap = {};
 		Events = {};
@@ -60,7 +56,27 @@ do
 
 	Library.__index = Library;
 	Library.Tabs.__index = Library.Tabs;
+
+	local get_safe_flag = function(self)
+		return self.Flag or self.Name
+	end
+
+	local get_safe_value = function(self)
+		return self.Get and self:Get() or self.Value
+	end
+
+	setmetatable(Library.Flags, {
+		__newindex = function(self, index, value)
+			Library.Values[get_safe_flag(value)] = get_safe_value(value)
+			return rawset(self, index, value)
+		end
+	})
 	Library.Sections.__index = Library.Sections;
+	
+	local callback_stuff = function(func, self) -- basically a function that i made so that i replace pcalls easier..
+		Library.Values[get_safe_flag(self)] = get_safe_value(self)
+		xpcall(func, print)
+	end
 
 	do
 		-- Folders
@@ -1272,7 +1288,7 @@ do
 				})
 			end;
 			if Toggle.Callback then
-				callback_stuff(Toggle.Callback);
+				callback_stuff(Toggle.Callback, Toggle);
 			end;
 		end;
 
@@ -1297,8 +1313,11 @@ do
 	
 			local Picker = {
 				Color = Color3.fromRGB(255,255,255), 
+				Flag = Data.Flag,
+				Default = Data.Default,
 				Transparency = 0.1,
 				IsOpen = false;
+				Callback = Colorpicker.Callback
 			};
 
 	
@@ -1537,7 +1556,7 @@ do
 				SubObjects["button"].BackgroundColor3 = Color3.fromHSV(Colors.h, Colors.s, Colors.v);
 				SubObjects["palette"].BackgroundColor3 = Color3.fromHSV(Colors.h, 1, 1);
 	
-				if Colorpicker.Callback then callback_stuff(Colorpicker.Callback) end
+				if Colorpicker.Callback then callback_stuff(Colorpicker.Callback, Picker) end
 			end;
 			
 			function Picker:Set(new_Value, cb)
@@ -1557,7 +1576,7 @@ do
 				SubObjects["palettedragger"].Position = UDim2.new(1 - Colors.s, 0, 1 - Colors.v, 0)
 				SubObjects["huedragger"].Position = UDim2.new(0, 0, 1 - Colors.h, -1)
 				
-				if Colorpicker.Callback then callback_stuff(Colorpicker.Callback) end;
+				if Colorpicker.Callback then callback_stuff(Colorpicker.Callback, Picker) end;
 			end;
 	
 			function Picker:UpdateHue()
@@ -1601,7 +1620,7 @@ do
 	
 			Picker:Set({Color = Colorpicker.Default, Transparency = Colorpicker.Alpha}, true)
 			Library.Flags[Colorpicker.Flag] = Picker;
-			if Colorpicker.Callback then callback_stuff(Colorpicker.Callback) end;
+			if Colorpicker.Callback then callback_stuff(Colorpicker.Callback, Picker) end;
 			return Colorpicker;
 		end;
 
@@ -1727,24 +1746,24 @@ do
 				if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then 
 					if Keybind["Mode"] == "Toggle" then 
 						Keybind.Value = not Keybind.Value;
-						callback_stuff(Keybind.Callback)
+						callback_stuff(Keybind.Callback, Keybind)
 					elseif Keybind["Mode"] == "Hold" then 
 						Keybind.Value = true;
-						callback_stuff(Keybind.Callback)
+						callback_stuff(Keybind.Callback, Keybind)
 					elseif Keybind["Mode"] == "Press" then 
-						callback_stuff(Keybind.Callback)
+						callback_stuff(Keybind.Callback, Keybind)
 					end;
 				end
 	
 				if Input.UserInputType == Keybind["Key"] and not Keybind.IsBeingSelected then 
 					if Keybind["Mode"] == "Toggle" then 
 						Keybind.Value = not Keybind.Value;
-						callback_stuff(Keybind.Callback)
+						callback_stuff(Keybind.Callback, Keybind)
 					elseif Keybind["Mode"] == "Hold" then 
 						Keybind.Value = true;
-						callback_stuff(Keybind.Callback)
+						callback_stuff(Keybind.Callback, Keybind)
 					elseif Keybind["Mode"] == "Press" then 
-						callback_stuff(Keybind.Callback)
+						callback_stuff(Keybind.Callback, Keybind)
 					end
 				end
 
@@ -1757,14 +1776,14 @@ do
 				if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then 
 					if Keybind["Mode"] == "Hold" then
 						Keybind.Value = false;
-						if Data.Callback then callback_stuff(Data.Callback) end;
+						if Keybind.Callback then callback_stuff(Keybind.Callback, Keybind) end;
 					end
 				end
 	
 				if Input.UserInputType == Keybind["Key"] and not Keybind.IsBeingSelected then 
 					if Keybind["Mode"] == "Hold" then 
 						Keybind.Value = false;
-						callback_stuff(Keybind.Callback)
+						callback_stuff(Keybind.Callback, Keybind)
 					end
 				end
 
@@ -1861,6 +1880,7 @@ do
 			local SubButton = {
 				Name = Data.Name;
 				Callback = Data.Callback or function() end;
+				Flag = Data.Flag
 			};
 	
 			local SubObjects = {};
@@ -1933,7 +1953,7 @@ do
 					Library:AddToRegistry(SubObjects["UIStroke1"], {
 						Color = "Border"
 					})
-					callback_stuff(SubButton.Callback);
+					callback_stuff(SubButton.Callback, SubButton);
 					tween_service:Create(SubObjects["UIStroke1"], TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {Color = Library.Border}):Play();
 				end;
 			end);
@@ -1953,7 +1973,7 @@ do
 				Library:AddToRegistry(Objects["UIStroke1"], {
 					Color = "Border"
 				})
-				callback_stuff(Button.Callback);
+				callback_stuff(Button.Callback, Button);
 				tween_service:Create(Objects["UIStroke1"], TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {Color = Library.Border}):Play();
 			end;
 		end);
@@ -2096,7 +2116,7 @@ do
 			Slider.Value = Val
 
 			if Slider.Callback then
-				callback_stuff(Slider.Callback);
+				callback_stuff(Slider.Callback, Slider);
 			end;
 		end;
 
@@ -2381,7 +2401,7 @@ do
 				end;    
 			end;
 
-			if Dropdown.Callback then callback_stuff(Dropdown.Callback); end;
+			if Dropdown.Callback then callback_stuff(Dropdown.Callback, Dropdown); end;
 		end;
 
 		function Dropdown:AddOption(Name)
@@ -2672,24 +2692,24 @@ do
 			if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then 
 				if Keybind["Mode"] == "Toggle" then 
 					Keybind.Value = not Keybind.Value;
-					callback_stuff(Keybind.Callback)
+					callback_stuff(Keybind.Callback, Keybind)
 				elseif Keybind["Mode"] == "Hold" then 
 					Keybind.Value = true;
-					callback_stuff(Keybind.Callback)
+					callback_stuff(Keybind.Callback, Keybind)
 				elseif Keybind["Mode"] == "Press" then 
-					callback_stuff(Keybind.Callback)
+					callback_stuff(Keybind.Callback, Keybind)
 				end
 			end
 
 			if Input.UserInputType == Keybind["Key"] and not Keybind.IsBeingSelected then 
 				if Keybind["Mode"] == "Toggle" then 
 					Keybind.Value = not Keybind.Value;
-					callback_stuff(Keybind.Callback)
+					callback_stuff(Keybind.Callback, Keybind)
 				elseif Keybind["Mode"] == "Hold" then 
 					Keybind.Value = true;
-					callback_stuff(Keybind.Callback)
+					callback_stuff(Keybind.Callback, Keybind)
 				elseif Keybind["Mode"] == "Press" then 
-					callback_stuff(Keybind.Callback)
+					callback_stuff(Keybind.Callback, Keybind)
 				end
 			end
 			KeyObject:SetVisiblity(Keybind.Value)
@@ -2701,14 +2721,14 @@ do
 			if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then 
 				if Keybind["Mode"] == "Hold" then
 					Keybind.Value = false;
-					if Data.Callback then callback_stuff(Data.Callback) end;
+					if Keybind.Callback then callback_stuff(Keybind.Callback, Data) end;
 				end
 			end
 
 			if Input.UserInputType == Keybind["Key"] and not Keybind.IsBeingSelected then 
-				if Keybind["Mode"] == "Hold" then 
+				if Keybind["Mode"] == "Hold" then
 					Keybind.Value = false;
-					callback_stuff(Keybind.Callback)
+					callback_stuff(Keybind.Callback, Keybind)
 				end
 			end
 
@@ -2738,10 +2758,13 @@ do
 		};
 
 		local Picker = {
-			Color = Color3.fromRGB(255,255,255), 
-			Transparency = 0.1,
-			IsOpen = false;
-		};
+				Color = Color3.fromRGB(255,255,255), 
+				Flag = Data.Flag,
+				Default = Data.Default,
+				Transparency = 0.1,
+				IsOpen = false;
+				Callback = Colorpicker.Callback
+			};
 
 		local Objects = {};
 		Objects["colorpicker"] = Instance.new("Frame")
@@ -3012,7 +3035,7 @@ do
 
 			Picker.Color = Picker:Get()
 
-			if Colorpicker.Callback then callback_stuff(Colorpicker.Callback) end
+			if Colorpicker.Callback then callback_stuff(Colorpicker.Callback, Picker) end
 		end;
 		
 		function Picker:Set(new_Value)
@@ -3032,7 +3055,7 @@ do
 			Objects["palettedragger"].Position = UDim2.new(1 - Colors.s, 0, 1 - Colors.v, 0)
 			Objects["huedragger"].Position = UDim2.new(0, 0, 1 - Colors.h, -1)
 			
-			if Colorpicker.Callback then callback_stuff(Colorpicker.Callback) end;
+			if Colorpicker.Callback then callback_stuff(Colorpicker.Callback, Picker) end;
 		end;
 
 		function Picker:UpdateHue()
@@ -3077,7 +3100,7 @@ do
 
 		Picker:Set({Color = Colorpicker.Default, Transparency = Colorpicker.Alpha}, true)
 		Library.Flags[Colorpicker.Flag] = Picker;
-		if Colorpicker.Callback then callback_stuff(Colorpicker.Callback) end;
+		if Colorpicker.Callback then callback_stuff(Colorpicker.Callback, Picker) end;
 		return Colorpicker;
 	end;
 
@@ -3464,7 +3487,7 @@ do
 					Dropdown.Options[Value].IsSelected = true;
 				end;
 			end;
-			if Dropdown.Callback then callback_stuff(Dropdown.Callback); end;
+			if Dropdown.Callback then callback_stuff(Dropdown.Callback, Dropdown); end;
 		end;
 
 		function Dropdown:AddOption(Name)
@@ -3683,7 +3706,7 @@ do
 				end;    
 			end;
 
-			if Listbox.Callback then callback_stuff(Listbox.Callback); end;
+			if Listbox.Callback then callback_stuff(Listbox.Callback, Listbox); end;
 		end;
 
 		function Listbox:AddOption(Name)
