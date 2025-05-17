@@ -3214,6 +3214,7 @@ do
 			function Textbox:Set(Value)
 				Textbox.Value = Value;
 				Objects["realbox"].Text = Value;
+				callback_stuff(Textbox.Callback, Textbox)
 			end;
 
 			if Data.Compact then
@@ -3225,7 +3226,7 @@ do
 				Library:RemoveFromRegistry(Objects["realbox"])
 				Library:AddToRegistry(Objects["realbox"], {
 					TextColor3 = "Accent"
-				})
+				})		
 				tween_service:Create(Objects["realbox"], TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextColor3 = Library.Accent}):Play();
 			end);
 
