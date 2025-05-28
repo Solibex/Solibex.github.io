@@ -1,5 +1,5 @@
 
-local Library = {}; 
+local Library = {};
 
 do
 	local players: Players = cloneref(game:GetService('Players'))
@@ -10,7 +10,7 @@ do
 	local run_service: RunService = cloneref(game:GetService('RunService'))
 	local safe_get_custom_asset = function(path)
 		local success, result = pcall(getcustomasset, path)
-		
+
 		if success then
 			return result
 		else
@@ -72,7 +72,7 @@ do
 		end
 	})
 	Library.Sections.__index = Library.Sections;
-	
+
 	local callback_stuff = function(func, self) -- basically a function that i made so that i replace pcalls easier..
 		Library.Values[get_safe_flag(self)] = get_safe_value(self)
 		xpcall(func, print)
@@ -178,7 +178,7 @@ do
 		["KeypadPlus"]       = "NPP";
 		["KeypadEnter"]      = "NPE";
 		["KeypadEquals"]     = "NPE";
-	
+
 		["Insert"]           = "INS";
 		["Home"]             = "HOME";
 		["PageUp"]           = "PGUP";
@@ -189,7 +189,7 @@ do
 		["LeftControl"]      = "CTRL";
 		["LeftAlt"]          = "ALT";
 		["RightAlt"]         = "ALT";
-	}; 
+	};
 
 	do
 		local Objects = {};
@@ -205,7 +205,7 @@ do
 	local LibFont = fonts.load("minecraftia", 'https://fishy.solutions/assets/minecraftia.ttf')
 
 	Library.Font = LibFont
-	
+
 	function Library:Connect(Signal, Callback)
 		local Connection = Signal:Connect(Callback);
 		table.insert(self.Connections, Connection);
@@ -233,21 +233,21 @@ do
 			Properties = Properties;
 			Idx = Idx;
 		};
-	
+
 		table.insert(Library.Registry, Data);
 		Library.RegistryMap[Instance] = Data;
 	end;
 
 	function Library:RemoveFromRegistry(Instance)
 		local Data = Library.RegistryMap[Instance];
-	
+
 		if Data then
 			for Idx = #Library.Registry, 1, -1 do
 				if Library.Registry[Idx] == Data then
 					table.remove(Library.Registry, Idx);
 				end;
 			end;
-	
+
 			Library.RegistryMap[Instance] = nil;
 		end;
 	end;
@@ -362,7 +362,7 @@ do
 				elseif rawget(Value, "Key") and rawget(Value, "Name") then
 					Config[Index] = {Name = Value.Key.Name};
 				else
-					if not Config[Index] then 
+					if not Config[Index] then
 						Config[Index] = Value.Value;
 					end;
 				end;
@@ -376,7 +376,7 @@ do
 		if not Config or Config == nil then
 			Library:Notify("Config not found", 3, Color3.fromRGB(255,0,0));
 		end;
-		
+
 		local Decoded = http_service:JSONDecode(Config);
 
 		for Index, Value in Decoded do
@@ -384,14 +384,14 @@ do
 				local Succ, Err = pcall(function()
 					local ToLib = Library.Flags[Index];
 
-					if ToLib then 
-						if rawget(ToLib, "Key") and type(Value) ~= "boolean" then 
+					if ToLib then
+						if rawget(ToLib, "Key") and type(Value) ~= "boolean" then
 							if table.find({"MouseButton1","MouseWheel","MouseButton2","MouseButton3"}, tostring(Value.Name)) then
 								ToLib:Set(Value, true)
-							else 
+							else
 								ToLib:Set(Value);
-							end 
-						elseif rawget(ToLib, "Color") then 
+							end
+						elseif rawget(ToLib, "Color") then
 							ToLib:Set({
 								Color = Color3.new(Value.Color.R, Value.Color.G, Value.Color.B),
 								Transparency = Value.Transparency
@@ -417,7 +417,7 @@ do
 	end;
 
 	function Library:DeleteConfig(ConfigName)
-		if isfile(`{Library.FolderName}/Configs/`..ConfigName..".json") then 
+		if isfile(`{Library.FolderName}/Configs/`..ConfigName..".json") then
 			delfile(`{Library.FolderName}/Configs/`..ConfigName..".json");
 		end;
 	end;
@@ -553,7 +553,7 @@ do
 		end)
 		return Watermark;
 	end
-	
+
 
 	function Library:KeybindList()
 		local DefaultSize = UDim2.new(1, 6, 0, 1)
@@ -610,8 +610,9 @@ do
 		Objects["value"].Parent = Objects["keybindlist"]
 
 		Library:AddToRegistry(Objects["value"], {
-			TextColor3 = "Text";
+			TextColor3 = "Accent";
 		});
+
 
 		Objects["UIStroke2"] = Instance.new("UIStroke")
 		Objects["UIStroke2"].LineJoinMode = Enum.LineJoinMode.Miter
@@ -620,7 +621,7 @@ do
 		Objects["accent"] = Instance.new("Frame")
 		Objects["accent"].Name = "accent"
 		Objects["accent"].BorderColor3 = Color3.fromRGB(0, 0, 0)
-		Objects["accent"].Size = UDim2.new(1, 6, 0, 1)
+		Objects["accent"].Size = UDim2.new(1, 18, 0, 1)
 		Objects["accent"].BorderSizePixel = 0
 		Objects["accent"].BackgroundColor3 = Library.Accent
 		Objects["accent"].Parent = Objects["keybindlist"]
@@ -643,16 +644,6 @@ do
 		Objects["UIListLayout"] = Instance.new("UIListLayout")
 		Objects["UIListLayout"].SortOrder = Enum.SortOrder.LayoutOrder
 		Objects["UIListLayout"].Parent = Objects["content"]
-		
-		function KeyList:CalculateSize()
-			local lol_size = DefaultSize.X.Offset
-			for _, child in Objects['content']:GetChildren() do
-				if child:IsA("TextLabel") and child.Visible == true then
-					lol_size = math.max(lol_size, child.TextBounds.X)
-				end
-			end
-			Objects['accent'].Size = UDim2.new(1, lol_size, 0, 1)
-		end
 
 		function KeyList:SetVisibility(Boolean)
 			Objects["keybindlist"].Visible = Boolean;
@@ -666,7 +657,6 @@ do
 			SubObjects["newkey"].FontFace = LibFont
 			SubObjects["newkey"].TextColor3 = Library.Accent
 			SubObjects["newkey"].BorderColor3 = Color3.fromRGB(0, 0, 0)
-			SubObjects["newkey"].Text = `[{Key}]: {Name}`
 			SubObjects["newkey"].Name = "newkey"
 			SubObjects["newkey"].BackgroundTransparency = 1
 			SubObjects["newkey"].TextXAlignment = Enum.TextXAlignment.Left
@@ -675,6 +665,7 @@ do
 			SubObjects["newkey"].TextSize = 12
 			SubObjects["newkey"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			SubObjects["newkey"].Visible = not Hidden
+			SubObjects["newkey"].RichText = true
 			SubObjects["newkey"].Parent = Objects["content"]
 
 			Library:AddToRegistry(SubObjects["newkey"], {
@@ -686,20 +677,18 @@ do
 			SubObjects["UIStroke"].Parent = SubObjects["newkey"]
 
 			function NewKey:SetVisiblity(Boolean)
-				if Hidden then 
+				if Hidden then
 					SubObjects["newkey"].Visible = false
 				else
 					SubObjects["newkey"].Visible = Boolean
 				end
-				KeyList:CalculateSize()
 			end;
 
 			function NewKey:Set(NewKey, NewName)
-				SubObjects["newkey"].Text = `[{NewKey}]: {NewName}`;
-				KeyList:CalculateSize()
+				SubObjects["newkey"].Text = `<font color="rgb(255, 255, 255)">[{NewKey}]:</font> {NewName}`;
 			end;
 
-			KeyList:CalculateSize()
+			NewKey:Set(Key, Name)
 
 			return NewKey;
 		end;
@@ -774,7 +763,7 @@ do
 		Objects["UIStroke24"] = Instance.new("UIStroke")
 		Objects["UIStroke24"].LineJoinMode = Enum.LineJoinMode.Miter
 		Objects["UIStroke24"].Parent = Objects["title"]
-		
+
 		Objects["inline"] = Instance.new("Frame")
 		Objects["inline"].Name = "inline"
 		Objects["inline"].Position = UDim2.new(0, 7, 0, 21)
@@ -787,7 +776,7 @@ do
 		Library:AddToRegistry(Objects["inline"], {
 			BackgroundColor3 = "Inline";
 		})
-		
+
 		Objects["UIStroke1"] = Instance.new("UIStroke")
 		Objects["UIStroke1"].Color = Library.Border
 		Objects["UIStroke1"].LineJoinMode = Enum.LineJoinMode.Miter
@@ -797,7 +786,7 @@ do
 		Library:AddToRegistry(Objects["UIStroke1"], {
 			Color = "Border";
 		})
-		
+
 		Objects["tabs"] = Instance.new("Frame")
 		Objects["tabs"].Name = "tabs"
 		Objects["tabs"].BackgroundTransparency = 1
@@ -807,7 +796,7 @@ do
 		Objects["tabs"].BorderSizePixel = 0
 		Objects["tabs"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Objects["tabs"].Parent = Objects["inline"]
-		
+
 		Objects["UIListLayout"] = Instance.new("UIListLayout")
 		Objects["UIListLayout"].FillDirection = Enum.FillDirection.Horizontal
 		Objects["UIListLayout"].HorizontalFlex = Enum.UIFlexAlignment.Fill
@@ -821,7 +810,7 @@ do
 		Objects["UIStroke3"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 		Objects["UIStroke3"].Parent = Objects["main"]
 
-		
+
 		Library:AddToRegistry(Objects["UIStroke3"], {
 			Color = "Accent";
 		})
@@ -904,7 +893,7 @@ do
 							Library.Dragging = false
 						end
 					end)
-				end 
+				end
 			end)
 			a.InputChanged:Connect(function(f)
 				if f.UserInputType == Enum.UserInputType.MouseMovement or f.UserInputType == Enum.UserInputType.Touch then
@@ -915,7 +904,7 @@ do
 				if f == b and Library.Dragging then
 					e(f)
 				end
-			end) 
+			end)
 		end
 		dragify();
 
@@ -1273,14 +1262,14 @@ do
 		function Toggle:Set(Value)
 			Toggle.Value = Value;
 			if Toggle.Value then
-				tween_service:Create(Objects["indicator"], TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Library.Accent}):Play();  
+				tween_service:Create(Objects["indicator"], TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Library.Accent}):Play();
 				tween_service:Create(Objects["text"], TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextTransparency = 0}):Play();
 				Library:RemoveFromRegistry(Objects["indicator"]);
 				Library:AddToRegistry(Objects["indicator"], {
 					BackgroundColor3 = "Accent";
 				})
 			else
-				tween_service:Create(Objects["indicator"], TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Library.Inline}):Play();  
+				tween_service:Create(Objects["indicator"], TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Library.Inline}):Play();
 				tween_service:Create(Objects["text"], TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextTransparency = 0.5}):Play();
 				Library:RemoveFromRegistry(Objects["indicator"]);
 				Library:AddToRegistry(Objects["indicator"], {
@@ -1310,9 +1299,9 @@ do
 				Callback = Data.Callback or function() end;
 			};
 			self.Pickers += 1;
-	
+
 			local Picker = {
-				Color = Color3.fromRGB(255,255,255), 
+				Color = Color3.fromRGB(255,255,255),
 				Flag = Data.Flag,
 				Default = Data.Default,
 				Transparency = 0.1,
@@ -1320,9 +1309,9 @@ do
 				Callback = Colorpicker.Callback
 			};
 
-	
+
 			local SubObjects = {};
-	
+
 			SubObjects["button"] = Instance.new("TextButton")
 			SubObjects["button"].FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
 			SubObjects["button"].TextColor3 = Color3.fromRGB(0, 0, 0)
@@ -1343,12 +1332,12 @@ do
 			else
 				SubObjects["button"].Position = UDim2.new(1, 14, 0, 0)
 			end
-	
+
 			SubObjects["UIGradient1"] = Instance.new("UIGradient")
 			SubObjects["UIGradient1"].Rotation = 90
 			SubObjects["UIGradient1"].Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(1, Color3.fromRGB(135, 135, 135))}
 			SubObjects["UIGradient1"].Parent = SubObjects["button"]
-	
+
 			SubObjects["UIStroke2"] = Instance.new("UIStroke")
 			SubObjects["UIStroke2"].Color = Library.Border
 			SubObjects["UIStroke2"].LineJoinMode = Enum.LineJoinMode.Miter
@@ -1373,7 +1362,7 @@ do
 			Library:AddToRegistry(SubObjects["pickerwindow"], {
 				BackgroundColor3 = "Background";
 			})
-	
+
 			SubObjects["UIStroke3"] = Instance.new("UIStroke")
 			SubObjects["UIStroke3"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 			SubObjects["UIStroke3"].LineJoinMode = Enum.LineJoinMode.Miter
@@ -1384,7 +1373,7 @@ do
 			Library:AddToRegistry(SubObjects["UIStroke3"], {
 				Color = "Border";
 			})
-	
+
 			SubObjects["palette"] = Instance.new("TextButton")
 			SubObjects["palette"].FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
 			SubObjects["palette"].TextColor3 = Color3.fromRGB(0, 0, 0)
@@ -1398,7 +1387,7 @@ do
 			SubObjects["palette"].TextSize = 14
 			SubObjects["palette"].BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 			SubObjects["palette"].Parent = SubObjects["pickerwindow"]
-	
+
 			SubObjects["sat"] = Instance.new("ImageLabel")
 			SubObjects["sat"].Image = safe_get_custom_asset(Library.FolderName .. "/Utilities/Saturation.png");
 			SubObjects["sat"].BackgroundTransparency = 1
@@ -1408,7 +1397,7 @@ do
 			SubObjects["sat"].BorderSizePixel = 0
 			SubObjects["sat"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			SubObjects["sat"].Parent = SubObjects["palette"]
-	
+
 			SubObjects["val"] = Instance.new("ImageLabel")
 			SubObjects["val"].Image = safe_get_custom_asset(Library.FolderName .. "/Utilities/Value.png");
 			SubObjects["val"].BackgroundTransparency = 1
@@ -1418,7 +1407,7 @@ do
 			SubObjects["val"].BorderSizePixel = 0
 			SubObjects["val"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			SubObjects["val"].Parent = SubObjects["palette"]
-	
+
 			SubObjects["UIStroke4"] = Instance.new("UIStroke")
 			SubObjects["UIStroke4"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 			SubObjects["UIStroke4"].LineJoinMode = Enum.LineJoinMode.Miter
@@ -1429,7 +1418,7 @@ do
 			Library:AddToRegistry(SubObjects["UIStroke4"], {
 				Color = "Border";
 			})
-	
+
 			SubObjects["palettedragger"] = Instance.new("Frame")
 			SubObjects["palettedragger"].Name = "dragger"
 			SubObjects["palettedragger"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -1437,7 +1426,7 @@ do
 			SubObjects["palettedragger"].BorderSizePixel = 0
 			SubObjects["palettedragger"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			SubObjects["palettedragger"].Parent = SubObjects["palette"]
-	
+
 			SubObjects["UIStroke5"] = Instance.new("UIStroke")
 			SubObjects["UIStroke5"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 			SubObjects["UIStroke5"].LineJoinMode = Enum.LineJoinMode.Miter
@@ -1448,7 +1437,7 @@ do
 			Library:AddToRegistry(SubObjects["UIStroke5"], {
 				Color = "Border";
 			})
-	
+
 			SubObjects["hue"] = Instance.new("ImageButton")
 			SubObjects["hue"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 			SubObjects["hue"].AutoButtonColor = false
@@ -1460,7 +1449,7 @@ do
 			SubObjects["hue"].BorderSizePixel = 0
 			SubObjects["hue"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			SubObjects["hue"].Parent = SubObjects["pickerwindow"]
-	
+
 			SubObjects["UIStroke6"] = Instance.new("UIStroke")
 			SubObjects["UIStroke6"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 			SubObjects["UIStroke6"].LineJoinMode = Enum.LineJoinMode.Miter
@@ -1471,7 +1460,7 @@ do
 			Library:AddToRegistry(SubObjects["UIStroke6"], {
 				Color = "Border";
 			})
-	
+
 			SubObjects["huedragger"] = Instance.new("Frame")
 			SubObjects["huedragger"].Name = "dragger"
 			SubObjects["huedragger"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -1479,7 +1468,7 @@ do
 			SubObjects["huedragger"].BorderSizePixel = 0
 			SubObjects["huedragger"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			SubObjects["huedragger"].Parent = SubObjects["hue"]
-	
+
 			SubObjects["UIStroke7"] = Instance.new("UIStroke")
 			SubObjects["UIStroke7"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 			SubObjects["UIStroke7"].LineJoinMode = Enum.LineJoinMode.Miter
@@ -1490,7 +1479,7 @@ do
 			Library:AddToRegistry(SubObjects["UIStroke7"], {
 				Color = "Border";
 			})
-	
+
 			SubObjects["shadow"] = Instance.new("ImageLabel")
 			SubObjects["shadow"].ImageColor3 = Library.Accent
 			SubObjects["shadow"].ScaleType = Enum.ScaleType.Slice
@@ -1511,14 +1500,14 @@ do
 			Library:AddToRegistry(SubObjects["shadow"], {
 				ImageColor3 = "Accent";
 			})
-	
+
 			function Colorpicker:Close()
 				SubObjects["pickerwindow"].Visible = false;
 			end
-	
+
 			function Colorpicker:Toggle()
 				Picker.IsOpen = not Picker.IsOpen;
-	
+
 				if Picker.IsOpen then
 					if Library.CurrentColorpicker then
 						Library.CurrentColorpicker:Close();
@@ -1529,18 +1518,18 @@ do
 					SubObjects["pickerwindow"].Visible = false;
 				end;
 			end;
-	
+
 			Library:Connect(SubObjects["button"].MouseButton1Down, function()
 				Colorpicker:Toggle();
 			end);
-	
+
 			local Mouse = players.LocalPlayer:GetMouse();
-			local Colors = {}; do 
+			local Colors = {}; do
 				Colors.h = (math.clamp(SubObjects["huedragger"].AbsolutePosition.Y-SubObjects["hue"].AbsolutePosition.Y, 0, SubObjects["hue"].AbsoluteSize.Y)/SubObjects["hue"].AbsoluteSize.Y)
 				Colors.s = 1-(math.clamp(SubObjects["palettedragger"].AbsolutePosition.X-SubObjects["palettedragger"].AbsolutePosition.X, 0, SubObjects["palettedragger"].AbsoluteSize.X)/SubObjects["palettedragger"].AbsoluteSize.X)
 				Colors.v = 1-(math.clamp(SubObjects["palettedragger"].AbsolutePosition.Y-SubObjects["palettedragger"].AbsolutePosition.Y, 0, SubObjects["palettedragger"].AbsoluteSize.Y)/SubObjects["palettedragger"].AbsoluteSize.Y)
 			end;
-	
+
 			function Picker:Get()
 				return Color3.fromHSV(Colors.h, Colors.s, Colors.v)
 			end
@@ -1549,36 +1538,36 @@ do
 				local ColorX = (math.clamp(Mouse.X - SubObjects["palette"].AbsolutePosition.X, 0, SubObjects["palette"].AbsoluteSize.X)/SubObjects["palette"].AbsoluteSize.X)
 				local ColorY = (math.clamp(Mouse.Y - SubObjects["palette"].AbsolutePosition.Y, 0, SubObjects["palette"].AbsoluteSize.Y)/SubObjects["palette"].AbsoluteSize.Y)
 				SubObjects["palettedragger"].Position = UDim2.new(ColorX, 0, ColorY, 0)
-	
+
 				Colors.s = 1 - ColorX
 				Colors.v = 1 - ColorY
-	
+
 				SubObjects["button"].BackgroundColor3 = Color3.fromHSV(Colors.h, Colors.s, Colors.v);
 				SubObjects["palette"].BackgroundColor3 = Color3.fromHSV(Colors.h, 1, 1);
-	
+
 				if Colorpicker.Callback then callback_stuff(Colorpicker.Callback, Picker) end
 			end;
-			
+
 			function Picker:Set(new_Value, cb)
 				local NColor, NTransparency = new_Value.Color, new_Value.Transparency;
-	
+
 				Picker.Color = NColor; Picker.Transparency = NTransparency;
-	
+
 				local duplicate = Color3.new(new_Value.Color.R, new_Value.Color.G, new_Value.Color.B);
 				Colors.h, Colors.s, Colors.v = duplicate:ToHSV()
 				Colors.h = math.clamp(Colors.h, 0, 1)
 				Colors.s = math.clamp(Colors.s, 0, 1)
 				Colors.v = math.clamp(Colors.v, 0, 1)
-	
+
 				SubObjects["button"].BackgroundColor3 = Color3.fromHSV(Colors.h, Colors.s, Colors.v);
 				SubObjects["palette"].BackgroundColor3 = Color3.fromHSV(Colors.h, 1, 1);
-	
+
 				SubObjects["palettedragger"].Position = UDim2.new(1 - Colors.s, 0, 1 - Colors.v, 0)
 				SubObjects["huedragger"].Position = UDim2.new(0, 0, 1 - Colors.h, -1)
-				
+
 				if Colorpicker.Callback then callback_stuff(Colorpicker.Callback, Picker) end;
 			end;
-	
+
 			function Picker:UpdateHue()
 				local y = math.clamp(Mouse.Y - SubObjects["hue"].AbsolutePosition.Y, 0, 150)
 				SubObjects["huedragger"].Position = UDim2.new(0, 0, 0, y)
@@ -1587,7 +1576,7 @@ do
 				SubObjects["palette"].BackgroundColor3 = Color3.fromHSV(Colors.h, 1, 1)
 				SubObjects["button"].BackgroundColor3 = Color3.fromHSV(Colors.h, Colors.s, Colors.v)
 			end;
-	
+
 			Library:Connect(SubObjects["palette"].MouseButton1Down, function()
 				Picker:UpdateColor()
 				local MoveConnection = Mouse.Move:Connect(function()
@@ -1602,7 +1591,7 @@ do
 					end
 				end)
 			end);
-	
+
 			Library:Connect(SubObjects["hue"].MouseButton1Down, function()
 				Picker:UpdateHue()
 				local MoveConnection = Mouse.Move:Connect(function()
@@ -1617,7 +1606,7 @@ do
 					end
 				end)
 			end);
-	
+
 			Picker:Set({Color = Colorpicker.Default, Transparency = Colorpicker.Alpha}, true)
 			Library.Flags[Colorpicker.Flag] = Picker;
 			if Colorpicker.Callback then callback_stuff(Colorpicker.Callback, Picker) end;
@@ -1638,9 +1627,9 @@ do
 				AbKey = "";
 
 			};
-	
+
 			local SubObjects = {};
-	
+
 			SubObjects["key"] = Instance.new("TextButton")
 			SubObjects["key"].FontFace = LibFont
 			SubObjects["key"].TextColor3 = Library.Text
@@ -1660,128 +1649,128 @@ do
 			Library:AddToRegistry(SubObjects["key"], {
 				TextColor3 = Library.Text;
 			})
-	
+
 			SubObjects["UIStroke2"] = Instance.new("UIStroke")
 			SubObjects["UIStroke2"].LineJoinMode = Enum.LineJoinMode.Miter
 			SubObjects["UIStroke2"].Parent = SubObjects["key"]
-	
+
 			local KeyObject = Library.KeybindList:AddNewKey("None", "None", Keybind.Hidden);
 
 			function Keybind:Set(Key, IsMouse)
-				if not IsMouse then 
+				if not IsMouse then
 					if Key and (type(Key) == "table" or typeof(Key) == "EnumItem") and Key.Name then
 						Keybind.IsBeingSelected = true;
-	
-						if Keys[Key.Name] then 
+
+						if Keys[Key.Name] then
 							KeyObject:Set(Keys[Key.Name], Toggle.Name);
 							SubObjects["key"].Text = "["..Keys[Key.Name].."]";
 							Keybind.AbKey = Keys[Key.Name]
-						else 
+						else
 							KeyObject:Set(Key.Name:sub(1, 2), Toggle.Name);
 							SubObjects["key"].Text = "["..Key.Name:sub(1, 2).."]";
-	
+
 							Keybind.AbKey = Key.Name:sub(1, 2)
 						end;
-	
+
 						if type(Key) == "table" and Key.Name ~= "" then
 							Keybind.Key = Enum.KeyCode[Key.Name];
-						else 
+						else
 							Keybind.Key = Key;
 						end;
 						Keybind.IsBeingSelected = false;
 					end;
 					tween_service:Create(SubObjects["key"], TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextColor3 = Library.Text}):Play();
 				else
-					if type(Key) == "table" then 
+					if type(Key) == "table" then
 						Key = Enum.UserInputType[Key.Name];
 					end
-					Keybind.IsBeingSelected = true; 
+					Keybind.IsBeingSelected = true;
 					local Shortened = "";
-					if Key == Enum.UserInputType.MouseButton1 then 
+					if Key == Enum.UserInputType.MouseButton1 then
 						Shortened = "M1";
-					elseif Key == Enum.UserInputType.MouseButton2 then 
+					elseif Key == Enum.UserInputType.MouseButton2 then
 						Shortened = "M2";
-					elseif Key == Enum.UserInputType.MouseButton3 then 
+					elseif Key == Enum.UserInputType.MouseButton3 then
 						Shortened = "M3";
-					elseif Key == Enum.UserInputType.MouseWheel then 
+					elseif Key == Enum.UserInputType.MouseWheel then
 						Shortened = "M4";
 					end;
-	
+
 					Keybind.Key = Key;
 					Keybind.AbKey = Shortened;
-	
+
 					KeyObject:Set(Shortened, Toggle.Name);
 					SubObjects["key"].Text = "["..Shortened.."]";
 					Keybind.IsBeingSelected = false
 					tween_service:Create(SubObjects["key"], TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextColor3 = Library.Text}):Play();
 				end;
 			end;
-	
+
 			Library:Connect(SubObjects["key"].MouseButton1Down, function()
 				task.wait(0.1)
 				tween_service:Create(SubObjects["key"], TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextColor3 = Library.Accent}):Play();
 				Keybind.IsBeingSelected = true;
-	
+
 				Library:Connect(user_input_service.InputBegan, function(Input)
 					if Input.UserInputType == Enum.UserInputType.Keyboard and Keybind.IsBeingSelected then
 						Keybind:Set(Input.KeyCode);
 						Keybind.IsBeingSelected = false;
-					elseif Input.UserInputType == Enum.UserInputType.MouseButton1 and Keybind.IsBeingSelected then 
+					elseif Input.UserInputType == Enum.UserInputType.MouseButton1 and Keybind.IsBeingSelected then
 						Keybind:Set(Enum.UserInputType.MouseButton1, true)
-					elseif Input.UserInputType == Enum.UserInputType.MouseButton2 and Keybind.IsBeingSelected then 
+					elseif Input.UserInputType == Enum.UserInputType.MouseButton2 and Keybind.IsBeingSelected then
 						Keybind:Set(Enum.UserInputType.MouseButton2, true)
-					elseif Input.UserInputType == Enum.UserInputType.MouseButton3 and Keybind.IsBeingSelected then 
+					elseif Input.UserInputType == Enum.UserInputType.MouseButton3 and Keybind.IsBeingSelected then
 						Keybind:Set(Enum.UserInputType.MouseButton3, true)
-					elseif Input.UserInputType == Enum.UserInputType.MouseWheel and Keybind.IsBeingSelected then 
+					elseif Input.UserInputType == Enum.UserInputType.MouseWheel and Keybind.IsBeingSelected then
 						Keybind:Set(Enum.UserInputType.MouseWheel, true)
-					else 
+					else
 						Keybind.IsBeingSelected = false;
 					end;
 				end);
 			end);
-	
+
 			Library:Connect(user_input_service.InputBegan,  function(Input, gpe)
 				if gpe then return end
 
-				if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then 
-					if Keybind["Mode"] == "Toggle" then 
+				if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then
+					if Keybind["Mode"] == "Toggle" then
 						Keybind.Value = not Keybind.Value;
 						callback_stuff(Keybind.Callback, Keybind)
-					elseif Keybind["Mode"] == "Hold" then 
+					elseif Keybind["Mode"] == "Hold" then
 						Keybind.Value = true;
 						callback_stuff(Keybind.Callback, Keybind)
-					elseif Keybind["Mode"] == "Press" then 
+					elseif Keybind["Mode"] == "Press" then
 						callback_stuff(Keybind.Callback, Keybind)
 					end;
 				end
-	
-				if Input.UserInputType == Keybind["Key"] and not Keybind.IsBeingSelected then 
-					if Keybind["Mode"] == "Toggle" then 
+
+				if Input.UserInputType == Keybind["Key"] and not Keybind.IsBeingSelected then
+					if Keybind["Mode"] == "Toggle" then
 						Keybind.Value = not Keybind.Value;
 						callback_stuff(Keybind.Callback, Keybind)
-					elseif Keybind["Mode"] == "Hold" then 
+					elseif Keybind["Mode"] == "Hold" then
 						Keybind.Value = true;
 						callback_stuff(Keybind.Callback, Keybind)
-					elseif Keybind["Mode"] == "Press" then 
+					elseif Keybind["Mode"] == "Press" then
 						callback_stuff(Keybind.Callback, Keybind)
 					end
 				end
 
 				KeyObject:SetVisiblity(Keybind.Value and Toggle.Value);
 			end)
-	
+
 			Library:Connect(user_input_service.InputEnded, function(Input, gpe)
 				if gpe then return end
 
-				if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then 
+				if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then
 					if Keybind["Mode"] == "Hold" then
 						Keybind.Value = false;
 						if Keybind.Callback then callback_stuff(Keybind.Callback, Keybind) end;
 					end
 				end
-	
-				if Input.UserInputType == Keybind["Key"] and not Keybind.IsBeingSelected then 
-					if Keybind["Mode"] == "Hold" then 
+
+				if Input.UserInputType == Keybind["Key"] and not Keybind.IsBeingSelected then
+					if Keybind["Mode"] == "Hold" then
 						Keybind.Value = false;
 						callback_stuff(Keybind.Callback, Keybind)
 					end
@@ -1789,15 +1778,15 @@ do
 
 				KeyObject:SetVisiblity(Keybind.Value and Toggle.Value);
 			end);
-	
+
 			function Keybind:Get()
 				return Keybind.Value
 			end
-	
-			if Keybind.Default then 
+
+			if Keybind.Default then
 				Keybind:Set(Keybind.Default);
 			end;
-	
+
 			Library.Flags[Keybind.Flag] = Keybind;
 			return Keybind;
 		end;
@@ -1805,11 +1794,11 @@ do
 		if Toggle.State then
 			Toggle:Set(Toggle.State);
 		end;
-		
+
 		function Toggle:Get()
 			return Toggle.Value;
 		end
-		
+
 		Library.Flags[Toggle.Flag] = Toggle;
 		return Toggle;
 	end;
@@ -1882,7 +1871,7 @@ do
 				Callback = Data.Callback or function() end;
 				Flag = Data.Flag
 			};
-	
+
 			local SubObjects = {};
 
 			Objects["button"].Size = UDim2.new(0.487,0,0,15);
@@ -1957,7 +1946,7 @@ do
 					tween_service:Create(SubObjects["UIStroke1"], TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {Color = Library.Border}):Play();
 				end;
 			end);
-		
+
 			return SubButton
 		end
 
@@ -1998,7 +1987,7 @@ do
 		local TextValue = ("[value]" .. Slider.Suffix);
 
 		local Objects = {};
-		
+
 		Objects["slider"] = Instance.new("Frame")
 		Objects["slider"].BackgroundTransparency = 1
 		Objects["slider"].Name = "slider"
@@ -2163,7 +2152,7 @@ do
 				end;
 			end;
 		end);
-		
+
 		function Slider:Set(Value)
 			Set(Value);
 		end;
@@ -2377,7 +2366,7 @@ do
 		function Dropdown:Set(Value)
 			if Dropdown.Options[Value] then
 				Dropdown.Value = Value;
-				Objects["value"].Text = tostring(Value); 
+				Objects["value"].Text = tostring(Value);
 				Dropdown.Options[Value].IsSelected = true;
 				Library:RemoveFromRegistry(Dropdown.Options[Value].Text);
 				Library:AddToRegistry(Dropdown.Options[Value].Text, {
@@ -2388,9 +2377,9 @@ do
 				tween_service:Create(Dropdown.Options[Value].Selector, TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play();
 			end;
 
-			for Index, Val in pairs(Dropdown.Options) do 
-				if Val ~= Dropdown.Options[Value] then 
-					Val.IsSelected = false; 
+			for Index, Val in pairs(Dropdown.Options) do
+				if Val ~= Dropdown.Options[Value] then
+					Val.IsSelected = false;
 					Library:RemoveFromRegistry(Val.Text);
 					Library:AddToRegistry(Val.Text, {
 						TextColor3 = "Text"
@@ -2398,7 +2387,7 @@ do
 					tween_service:Create(Val.Text, TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextColor3 = Library.Text}):Play();
 					tween_service:Create(Val.Selector, TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
 					tween_service:Create(Val.Text, TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {Position = UDim2.new(0,4,0,-1)}):Play();
-				end;    
+				end;
 			end;
 
 			if Dropdown.Callback then callback_stuff(Dropdown.Callback, Dropdown); end;
@@ -2466,8 +2455,8 @@ do
 			Library:Connect(OptionInsts["option"].MouseButton1Down, function()
 				Option.IsSelected = not Option.IsSelected
 
-				for Index, Value in next, Dropdown.Options do 
-					if Value ~= Option then 
+				for Index, Value in next, Dropdown.Options do
+					if Value ~= Option then
 						Value.IsSelected = false;
 						Library:RemoveFromRegistry(Value.Text);
 						Library:AddToRegistry(Value.Text, {
@@ -2478,8 +2467,8 @@ do
 						tween_service:Create(Value.Text, TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {Position = UDim2.new(0,4,0,-1)}):Play();
 					end;
 				end;
-				
-				if Option.IsSelected then 
+
+				if Option.IsSelected then
 					Dropdown:Set(Option.Name);
 				else
 					Library:RemoveFromRegistry(OptionInsts["text"]);
@@ -2513,7 +2502,7 @@ do
 
 		if Dropdown.Default then
 			Dropdown:Set(Dropdown.Default);
-		else 
+		else
 			Dropdown:Set(Data.Options[1])
 		end;
 
@@ -2600,15 +2589,15 @@ do
 		local KeyObject = Library.KeybindList:AddNewKey("None", "None", Keybind.Hidden);
 
 		function Keybind:Set(Key, IsMouse)
-			if not IsMouse then 
+			if not IsMouse then
 				if Key and (type(Key) == "table" or typeof(Key) == "EnumItem") and Key.Name then
 					Keybind.IsBeingSelected = true;
 
-					if Keys[Key.Name] then 
+					if Keys[Key.Name] then
 						KeyObject:Set(Keys[Key.Name], Keybind.Name);
 						Objects["key"].Text = "["..Keys[Key.Name].."]";
 						Keybind.AbKey = Keys[Key.Name]
-					else 
+					else
 						KeyObject:Set(Key.Name:sub(1, 2), Keybind.Name);
 						Objects["key"].Text = "["..Key.Name:sub(1, 2).."]";
 
@@ -2617,9 +2606,9 @@ do
 
 					if type(Key) == "table" and Key.Name ~= "" then
 
-					
+
 						Keybind.Key = Enum.KeyCode[Key.Name];
-					else 
+					else
 						Keybind.Key = Key;
 					end;
 					Keybind.IsBeingSelected = false;
@@ -2630,18 +2619,18 @@ do
 				})
 				tween_service:Create(Objects["key"], TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextColor3 = Library.Text}):Play();
 			else
-				if type(Key) == "table" then 
+				if type(Key) == "table" then
 					Key = Enum.UserInputType[Key.Name];
 				end
-				Keybind.IsBeingSelected = true; 
+				Keybind.IsBeingSelected = true;
 				local Shortened = "";
-				if Key == Enum.UserInputType.MouseButton1 then 
+				if Key == Enum.UserInputType.MouseButton1 then
 					Shortened = "M1";
-				elseif Key == Enum.UserInputType.MouseButton2 then 
+				elseif Key == Enum.UserInputType.MouseButton2 then
 					Shortened = "M2";
-				elseif Key == Enum.UserInputType.MouseButton3 then 
+				elseif Key == Enum.UserInputType.MouseButton3 then
 					Shortened = "M3";
-				elseif Key == Enum.UserInputType.MouseWheel then 
+				elseif Key == Enum.UserInputType.MouseWheel then
 					Shortened = "M4";
 				end;
 
@@ -2672,15 +2661,15 @@ do
 				if Input.UserInputType == Enum.UserInputType.Keyboard and Keybind.IsBeingSelected then
 					Keybind:Set(Input.KeyCode);
 					Keybind.IsBeingSelected = false;
-				elseif Input.UserInputType == Enum.UserInputType.MouseButton1 and Keybind.IsBeingSelected then 
+				elseif Input.UserInputType == Enum.UserInputType.MouseButton1 and Keybind.IsBeingSelected then
 					Keybind:Set(Enum.UserInputType.MouseButton1, true)
-				elseif Input.UserInputType == Enum.UserInputType.MouseButton2 and Keybind.IsBeingSelected then 
+				elseif Input.UserInputType == Enum.UserInputType.MouseButton2 and Keybind.IsBeingSelected then
 					Keybind:Set(Enum.UserInputType.MouseButton2, true)
-				elseif Input.UserInputType == Enum.UserInputType.MouseButton3 and Keybind.IsBeingSelected then 
+				elseif Input.UserInputType == Enum.UserInputType.MouseButton3 and Keybind.IsBeingSelected then
 					Keybind:Set(Enum.UserInputType.MouseButton3, true)
-				elseif Input.UserInputType == Enum.UserInputType.MouseWheel and Keybind.IsBeingSelected then 
+				elseif Input.UserInputType == Enum.UserInputType.MouseWheel and Keybind.IsBeingSelected then
 					Keybind:Set(Enum.UserInputType.MouseWheel, true)
-				else 
+				else
 					Keybind.IsBeingSelected = false;
 				end;
 			end);
@@ -2689,26 +2678,26 @@ do
 		Library:Connect(user_input_service.InputBegan,  function(Input, gpe)
 			if gpe then return end
 
-			if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then 
-				if Keybind["Mode"] == "Toggle" then 
+			if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then
+				if Keybind["Mode"] == "Toggle" then
 					Keybind.Value = not Keybind.Value;
 					callback_stuff(Keybind.Callback, Keybind)
-				elseif Keybind["Mode"] == "Hold" then 
+				elseif Keybind["Mode"] == "Hold" then
 					Keybind.Value = true;
 					callback_stuff(Keybind.Callback, Keybind)
-				elseif Keybind["Mode"] == "Press" then 
+				elseif Keybind["Mode"] == "Press" then
 					callback_stuff(Keybind.Callback, Keybind)
 				end
 			end
 
-			if Input.UserInputType == Keybind["Key"] and not Keybind.IsBeingSelected then 
-				if Keybind["Mode"] == "Toggle" then 
+			if Input.UserInputType == Keybind["Key"] and not Keybind.IsBeingSelected then
+				if Keybind["Mode"] == "Toggle" then
 					Keybind.Value = not Keybind.Value;
 					callback_stuff(Keybind.Callback, Keybind)
-				elseif Keybind["Mode"] == "Hold" then 
+				elseif Keybind["Mode"] == "Hold" then
 					Keybind.Value = true;
 					callback_stuff(Keybind.Callback, Keybind)
-				elseif Keybind["Mode"] == "Press" then 
+				elseif Keybind["Mode"] == "Press" then
 					callback_stuff(Keybind.Callback, Keybind)
 				end
 			end
@@ -2718,14 +2707,14 @@ do
 		Library:Connect(user_input_service.InputEnded, function(Input, gpe)
 			if gpe then return end
 
-			if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then 
+			if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then
 				if Keybind["Mode"] == "Hold" then
 					Keybind.Value = false;
 					if Keybind.Callback then callback_stuff(Keybind.Callback, Data) end;
 				end
 			end
 
-			if Input.UserInputType == Keybind["Key"] and not Keybind.IsBeingSelected then 
+			if Input.UserInputType == Keybind["Key"] and not Keybind.IsBeingSelected then
 				if Keybind["Mode"] == "Hold" then
 					Keybind.Value = false;
 					callback_stuff(Keybind.Callback, Keybind)
@@ -2739,7 +2728,7 @@ do
 			return Keybind.Value
 		end
 
-		if Keybind.Default then 
+		if Keybind.Default then
 			Keybind:Set(Keybind.Default);
 		end;
 
@@ -2758,7 +2747,7 @@ do
 		};
 
 		local Picker = {
-				Color = Color3.fromRGB(255,255,255), 
+				Color = Color3.fromRGB(255,255,255),
 				Flag = Data.Flag,
 				Default = Data.Default,
 				Transparency = 0.1,
@@ -2909,7 +2898,7 @@ do
 		Objects["palettedragger"].BorderSizePixel = 0
 		Objects["palettedragger"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Objects["palettedragger"].Parent = Objects["palette"]
-		
+
 
 		Objects["UIStroke5"] = Instance.new("UIStroke")
 		Objects["UIStroke5"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
@@ -3011,13 +3000,13 @@ do
 		local IsInColor2 = false;
 		local IsInColor1 = false;
 		local IsInTransparency = false;
-		local Colors = {}; do 
+		local Colors = {}; do
 			Colors.h = (math.clamp(Objects["huedragger"].AbsolutePosition.Y-Objects["hue"].AbsolutePosition.Y, 0, Objects["hue"].AbsoluteSize.Y)/Objects["hue"].AbsoluteSize.Y)
 			Colors.s = 1-(math.clamp(Objects["palettedragger"].AbsolutePosition.X-Objects["palettedragger"].AbsolutePosition.X, 0, Objects["palettedragger"].AbsoluteSize.X)/Objects["palettedragger"].AbsoluteSize.X)
 			Colors.v = 1-(math.clamp(Objects["palettedragger"].AbsolutePosition.Y-Objects["palettedragger"].AbsolutePosition.Y, 0, Objects["palettedragger"].AbsoluteSize.Y)/Objects["palettedragger"].AbsoluteSize.Y)
 		end;
 
-		
+
 		function Picker:Get()
 			return Color3.fromHSV(Colors.h, Colors.s, Colors.v)
 		end
@@ -3037,7 +3026,7 @@ do
 
 			if Colorpicker.Callback then callback_stuff(Colorpicker.Callback, Picker) end
 		end;
-		
+
 		function Picker:Set(new_Value)
 			local NColor, NTransparency = new_Value.Color, new_Value.Transparency;
 
@@ -3054,7 +3043,7 @@ do
 
 			Objects["palettedragger"].Position = UDim2.new(1 - Colors.s, 0, 1 - Colors.v, 0)
 			Objects["huedragger"].Position = UDim2.new(0, 0, 1 - Colors.h, -1)
-			
+
 			if Colorpicker.Callback then callback_stuff(Colorpicker.Callback, Picker) end;
 		end;
 
@@ -3226,7 +3215,7 @@ do
 				Library:RemoveFromRegistry(Objects["realbox"])
 				Library:AddToRegistry(Objects["realbox"], {
 					TextColor3 = "Accent"
-				})		
+				})
 				tween_service:Create(Objects["realbox"], TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextColor3 = Library.Accent}):Play();
 			end);
 
@@ -3247,7 +3236,7 @@ do
 		Library.Flags[Textbox.Flag] = Textbox;
 		return Textbox;
 	end;
-	
+
 	function Library.Sections:Multidropdown(Data)
 		local Dropdown = {
 			Section = self;
@@ -3307,7 +3296,7 @@ do
 		Objects["realdropdown"].BorderSizePixel = 0
 		Objects["realdropdown"].BackgroundColor3 = Library.Inline
 		Objects["realdropdown"].Parent = Objects["dropdown"]
-		
+
 		Library:AddToRegistry(Objects["realdropdown"], {
 			BackgroundColor3 = "Inline";
 		})
@@ -3451,8 +3440,8 @@ do
 			Dropdown.Value = {};
 			Objects["value"].Text = "";
 
-			for Index, Value in next, Dropdown.Options do 
-				Dropdown.Options[Index].IsSelected = false; 
+			for Index, Value in next, Dropdown.Options do
+				Dropdown.Options[Index].IsSelected = false;
 				Library:RemoveFromRegistry(Dropdown.Options[Index].Text);
 				Library:AddToRegistry(Dropdown.Options[Index].Text, {
 					TextColor3 = "Text";
@@ -3462,14 +3451,14 @@ do
 				tween_service:Create(Dropdown.Options[Index].Text, TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {Position = UDim2.new(0,4,0,-1)}):Play();
 			end;
 
-			if type(Value) == "table" then 
-				for Index, Value in next, Value do 
+			if type(Value) == "table" then
+				for Index, Value in next, Value do
 					Objects["value"].Text = Objects["value"].Text .. Value..", "
 				end;
 				Objects["value"].Text = Objects["value"].Text:sub(1, -3);
 				local Split = Objects["value"].Text:split();
-				
-				if Objects["value"].TextBounds.X > (Objects["value"].AbsoluteSize.X - 10) then 
+
+				if Objects["value"].TextBounds.X > (Objects["value"].AbsoluteSize.X - 10) then
 					Objects["value"].Text = Objects["value"].Text:sub(1, 17) .. "...";
 				end;
 
@@ -3566,8 +3555,8 @@ do
 					end);
 				else
 					task.spawn(function()
-						for Index, Value in next, Dropdown.Value do 
-							if Value == Option.Name then 
+						for Index, Value in next, Dropdown.Value do
+							if Value == Option.Name then
 								Dropdown.Value[Index] = nil;
 							end;
 						end;
@@ -3587,13 +3576,13 @@ do
 			return Option;
 		end;
 
-		for Index, Value in next, Data.Options do 
+		for Index, Value in next, Data.Options do
 			Dropdown:AddOption(Value);
 		end;
 
 		if Dropdown.Default then
 			Dropdown:Set(Dropdown.Default);
-		else 
+		else
 			Dropdown:Set({Data.Options[1]});
 		end;
 
@@ -3696,15 +3685,15 @@ do
 				tween_service:Create(Listbox.Options[Value].Text, TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextColor3 = Library.Accent}):Play();
 			end;
 
-			for Index, Val in pairs(Listbox.Options) do 
-				if Val ~= Listbox.Options[Value] then 
-					Val.IsSelected = false; 
+			for Index, Val in pairs(Listbox.Options) do
+				if Val ~= Listbox.Options[Value] then
+					Val.IsSelected = false;
 					Library:RemoveFromRegistry(Val.Text);
 					Library:AddToRegistry(Val.Text, {
 						TextColor3 = "Text";
 					})
 					tween_service:Create(Val.Text, TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextColor3 = Library.Text}):Play();
-				end;    
+				end;
 			end;
 
 			if Listbox.Callback then callback_stuff(Listbox.Callback, Listbox); end;
@@ -3758,8 +3747,8 @@ do
 			Library:Connect(OptionInsts["option"].MouseButton1Down, function()
 				Option.IsSelected = not Option.IsSelected
 
-				for _, Value in next, Listbox.Options do 
-					if Value ~= Option then 
+				for _, Value in next, Listbox.Options do
+					if Value ~= Option then
 						Value.IsSelected = false;
 						Library:RemoveFromRegistry(Value.Text);
 						Library:AddToRegistry(Value.Text, {
@@ -3768,8 +3757,8 @@ do
 						tween_service:Create(Value.Text, TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextColor3 = Library.Text}):Play();
 					end;
 				end;
-				
-				if Option.IsSelected then 
+
+				if Option.IsSelected then
 					Listbox:Set(Option.Name);
 				else
 					Library:RemoveFromRegistry(OptionInsts["text"]);
@@ -3783,7 +3772,7 @@ do
 			return Option;
 		end;
 
-		
+
 		function Listbox:RemoveOption(Name)
 			local object = Listbox.Options[Name]
 
@@ -3793,7 +3782,7 @@ do
 			end;
 		end;
 
-		for _, Value in next, Data.Options do 
+		for _, Value in next, Data.Options do
 			Listbox:AddOption(Value);
 		end;
 
