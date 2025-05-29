@@ -660,7 +660,8 @@ do
 			SubObjects["newkey"].Name = "newkey"
 			SubObjects["newkey"].BackgroundTransparency = 1
 			SubObjects["newkey"].TextXAlignment = Enum.TextXAlignment.Left
-			SubObjects["newkey"].Size = UDim2.new(0, 100, 0, 20)
+			SubObjects["newkey"].Size = UDim2.new(0, 0, 0, 0)
+			SubObjects["newkey"].AutomaticSize = Enum.AutomaticSize.XY
 			SubObjects["newkey"].BorderSizePixel = 0
 			SubObjects["newkey"].TextSize = 12
 			SubObjects["newkey"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
