@@ -2,27 +2,26 @@ const canvas = document.getElementById("constellation");
 const ctx = canvas.getContext('2d');
 let width, height, particles, mouse, audiocontext, analyzer, datarray;
 const colors = ["rgba(19, 128, 225, ", "rgba(31, 28, 54, ", "rgba(17, 16, 31, "];
-
 function init() {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
     particles = [];
     mouse = { 'x': width / 2, 'y': height / 2 };
-    const colSpacing = width / 20;
-    const rowSpacing = height / 10;
-    for (let row = 0; row < 10; row++) {
-        for (let col = 0; col < 20; col++) {
-            const colorIndex = Math.floor(Math.random() * colors.length);
-            const opacity = 0.4 + Math.random() * 0.2;
-            const color = colors[colorIndex] + opacity + ')';
+    const _0x1122b1 = width / 20;
+    const _0x27c4fc = height / 10;
+    for (let _0x1f2b47 = 0; _0x1f2b47 < 10; _0x1f2b47++) {
+        for (let _0x3239c0 = 0; _0x3239c0 < 20; _0x3239c0++) {
+            const _0x478d74 = Math.floor(Math.random() * colors.length);
+            const _0x584459 = 0.4 + Math.random() * 0.2;
+            const _0x1ac344 = colors[_0x478d74] + _0x584459 + ')';
             particles.push({
-                x: col * colSpacing + Math.random() * colSpacing * 0.5,
-                y: row * rowSpacing + Math.random() * rowSpacing * 0.5,
-                radius: Math.random() * 2 + 1,
-                vx: Math.random() - 0.5,
-                vy: Math.random() - 0.5,
-                originalSpeed: Math.random() * 0.6 + 0.1,
-                color: color
+                'x': _0x3239c0 * _0x1122b1 + Math.random() * _0x1122b1 * 0.5,
+                'y': _0x1f2b47 * _0x27c4fc + Math.random() * _0x27c4fc * 0.5,
+                'radius': Math.random() * 2 + 1,
+                'vx': Math.random() - 0.5,
+                'vy': Math.random() - 0.5,
+                'originalSpeed': Math.random() * 0.6 + 0.1,
+                'color': _0x1ac344
             });
         }
     }
@@ -53,10 +52,12 @@ function updateParticles(beatStrength) {
         const speed = particle.originalSpeed * (1 + beatStrength * 5);
         particle.x += particle.vx * speed;
         particle.y += particle.vy * speed;
-
-        if (particle.x < 0 || particle.x > width) particle.vx = -particle.vx;
-        if (particle.y < 0 || particle.y > height) particle
-        particle.vy = -particle.vy;
+        if (particle.x < 0 || particle.x > width) {
+            particle.vx = -particle.vx;
+        }
+        if (particle.y < 0 || particle.y > height) {
+            particle.vy = -particle.vy;
+        }
     });
 }
 
@@ -65,7 +66,7 @@ function drawConstellations() {
     ctx.lineWidth = 1;
     particles.forEach(particle => {
         particles.forEach(otherParticle => {
-            const dist = Math.hypot(particle.x - otherParticle.x, particle.y - otherParticle.y);
+            const dist = Math.sqrt(Math.pow(particle.x - otherParticle.x, 2) + Math.pow(particle.y - otherParticle.y, 2));
             if (dist < 150) {
                 ctx.strokeStyle = particle.color;
                 ctx.beginPath();
@@ -74,7 +75,8 @@ function drawConstellations() {
                 ctx.stroke();
             }
         });
-        const distToMouse = Math.hypot(mouse.x - particle.x, mouse.y - particle.y);
+
+        const distToMouse = Math.sqrt(Math.pow(mouse.x - particle.x, 2) + Math.pow(mouse.y - particle.y, 2));
         if (distToMouse < 150) {
             ctx.strokeStyle = particle.color;
             ctx.beginPath();
@@ -90,10 +92,12 @@ function animate() {
         analyzer.getByteFrequencyData(datarray);
         const beatStrength = beatDetector(datarray);
         updateParticles(beatStrength);
+
+        
         const fishyIcon = document.getElementById("fish-icon");
         if (fishyIcon) {
             if (beatStrength > 0) {
-                fishyIcon.style.filter = `drop-shadow(0 0 ${20 * beatStrength}px rgba(19, 128, 225, 1))`;
+                fishyIcon.style.filter = drop-shadow(0 0 ${20 * beatStrength}px rgba(19, 128, 225, 1));
             } else {
                 fishyIcon.style.filter = "none";
             }
@@ -106,31 +110,29 @@ function animate() {
 }
 
 window.addEventListener("resize", init);
-window.addEventListener("mousemove", e => {
+window.addEventListener("mousemove", (e) => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
 });
 
 document.addEventListener("DOMContentLoaded", () => {
     const audioPlayer = document.getElementById("audio-player");
-    audioPlayer.play().catch(() => {});
+    audioPlayer.play();
     setupAudio();
 });
 
-window.addEventListener("load", () => {
-    const loader = document.getElementById("cube-loader");
-    const mainContent = document.getElementById("main-content");
-    loader.style.transition = "opacity 2s ease-out";
-    loader.style.opacity = "0";
+
+window.addEventListener('load', () => {
+    const loader = document.getElementById('cube-loader');
+    loader.style.transition = 'opacity 3s ease-out';
+    loader.style.opacity = 0;
     setTimeout(() => {
-        loader.style.display = "none";
-        mainContent.style.display = "block";
-        setTimeout(() => {
-            mainContent.classList.add("visible");
-        }, 50);
+        loader.style.display = 'none';
+        const mainContent = document.getElementById('main-content');
+        mainContent.style.display = 'block';
         init();
         animate();
-    }, 2000);
+    }, 5000);
 });
 
 init();
