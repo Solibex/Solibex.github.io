@@ -134,7 +134,7 @@ html, body {
     height: 100%;
     width: 100%;
     position: fixed;
-    background-color: white;
+    background-color: black;
     z-index: 9999999;
 }
 
