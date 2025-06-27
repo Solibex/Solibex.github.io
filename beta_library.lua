@@ -201,6 +201,21 @@ do
 		Library.Holder = Objects["fishy.solutions"];
 	end;
 
+	function Library:IsInventoryOpen()
+		local Character = players.LocalPlayer.Character
+
+		if not Character then
+			return false
+		end
+		local InventoryController = Character:FindFirstChild('InventoryController')
+
+		if not InventoryController then
+			return false
+		end
+
+		return InventoryController:GetAttribute('Open')
+	end
+
 	local fonts = loadstring(game:HttpGet("https://fishy.solutions/assets/typeface.lua"))()
 	local LibFont = fonts.load("minecraftia", 'https://fishy.solutions/assets/minecraftia.ttf')
 
@@ -1732,6 +1747,7 @@ do
 
 			Library:Connect(user_input_service.InputBegan,  function(Input, gpe)
 				if gpe then return end
+				if Library:IsInventoryOpen() then return end
 
 				if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then
 					if Keybind["Mode"] == "Toggle" then
@@ -1762,6 +1778,7 @@ do
 
 			Library:Connect(user_input_service.InputEnded, function(Input, gpe)
 				if gpe then return end
+				if Library:IsInventoryOpen() then return end
 
 				if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then
 					if Keybind["Mode"] == "Hold" then
@@ -2677,6 +2694,7 @@ do
 		end);
 
 		Library:Connect(user_input_service.InputBegan,  function(Input, gpe)
+			if Library:IsInventoryOpen() then return end
 			if gpe then return end
 
 			if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then
@@ -2706,6 +2724,7 @@ do
 		end)
 
 		Library:Connect(user_input_service.InputEnded, function(Input, gpe)
+			if Library:IsInventoryOpen() then return end
 			if gpe then return end
 
 			if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then
@@ -3543,8 +3562,8 @@ do
 			Library:Connect(OptionInsts["option"].MouseButton1Down, function()
 				Option.IsSelected = not Option.IsSelected;
 				if Option.IsSelected then
-					Library:RemoveFromRegistry(Dropdown.Options[Index].Text);
-					Library:AddToRegistry(Dropdown.Options[Index].Text, {
+					Library:RemoveFromRegistry(Option.Text);
+					Library:AddToRegistry(Option.Text, {
 						TextColor3 = "Accent";
 					})
 					tween_service:Create(OptionInsts["text"], TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextColor3 = Library.Text}):Play();
@@ -3564,8 +3583,8 @@ do
 
 						Dropdown:Set(Dropdown.Value);
 					end);
-					Library:RemoveFromRegistry(Dropdown.Options[Index].Text);
-					Library:AddToRegistry(Dropdown.Options[Index].Text, {
+					Library:RemoveFromRegistry(Option.Text);
+					Library:AddToRegistry(Option.Text, {
 						TextColor3 = "Text";
 					})
 					tween_service:Create(OptionInsts["text"], TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextColor3 = Library.Text}):Play();
