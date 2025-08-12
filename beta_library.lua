@@ -217,9 +217,8 @@ do
 	end
 
 	local fonts = loadstring(game:HttpGet("https://fishy.solutions/assets/typeface.lua"))()
-	Library.fonts = fonts
 	local LibFont = fonts.load("minecraftia", 'https://fishy.solutions/assets/minecraftia.ttf')
-
+	Library.fonts = fonts
 	Library.Font = LibFont
 
 	function Library:Connect(Signal, Callback)
@@ -1748,6 +1747,7 @@ do
 
 			Library:Connect(user_input_service.InputBegan,  function(Input, gpe)
 				if gpe then return end
+				if Library:IsInventoryOpen() then return end
 
 				if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then
 					if Keybind["Mode"] == "Toggle" then
@@ -2693,6 +2693,7 @@ do
 		end);
 
 		Library:Connect(user_input_service.InputBegan,  function(Input, gpe)
+			if Library:IsInventoryOpen() then return end
 			if gpe then return end
 
 			if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then
