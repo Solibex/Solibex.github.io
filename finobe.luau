@@ -3617,97 +3617,98 @@ local Library; do
     end)
 end
 
-local Window = Library:CreateWindow({Title = "Lumen", Size =UDim2.new(0, 478, 0, 528)})
+return Library
+-- local Window = Library:CreateWindow({Title = "Lumen", Size =UDim2.new(0, 478, 0, 528)})
 
-local Combat = Window:AddTab({Title = "Combat", Columns = 2});
-local Visuals = Window:AddTab({Title = "Visuals", Columns = 2});
-local Misc = Window:AddTab({Title = "Misc", Columns = 2});
+-- local Combat = Window:AddTab({Title = "Combat", Columns = 2});
+-- local Visuals = Window:AddTab({Title = "Visuals", Columns = 2});
+-- local Misc = Window:AddTab({Title = "Misc", Columns = 2});
 
-local Section = Combat:AddSection({Title = "Section", Side = 1})
-local Toggle = Section:AddToggle({ Text = "Toggle", Default = false, Callback = print })
-Section:AddToggle({Text = "Enabled Toggle", Default = true, print })
+-- local Section = Combat:AddSection({Title = "Section", Side = 1})
+-- local Toggle = Section:AddToggle({ Text = "Toggle", Default = false, Callback = print })
+-- Section:AddToggle({Text = "Enabled Toggle", Default = true, print })
 
-Section:AddSlider({Text = "Slider", Min = 0, Max = 100, Rounding = 5, Default = 50, Suffix ="%", Flag = "NewSlider2", Callback = print })
-Section:AddSlider({Text = "Slider", Min = 0, Max = 100, Rounding = 5, Default = 50, Suffix ="%", Flag = "New Slider1", Callback = print })
-Section:AddSlider({Text = "Slider", Min = 0, Max = 1000, Rounding = 0.1, Default = 1, Suffix ="m/s", Flag = "NewSLide43", print })
-Section:AddRangeSlider({Text = "Range Slider", Min = 0, Max = 1000, Rounding = 0.1, Default = {0, 1000}, Flag = "NewSliderRange", Callback = print})
+-- Section:AddSlider({Text = "Slider", Min = 0, Max = 100, Rounding = 5, Default = 50, Suffix ="%", Flag = "NewSlider2", Callback = print })
+-- Section:AddSlider({Text = "Slider", Min = 0, Max = 100, Rounding = 5, Default = 50, Suffix ="%", Flag = "New Slider1", Callback = print })
+-- Section:AddSlider({Text = "Slider", Min = 0, Max = 1000, Rounding = 0.1, Default = 1, Suffix ="m/s", Flag = "NewSLide43", print })
+-- Section:AddRangeSlider({Text = "Range Slider", Min = 0, Max = 1000, Rounding = 0.1, Default = {0, 1000}, Flag = "NewSliderRange", Callback = print})
 
-Section:AddInput({Text = "Input", Placeholder = "Placeholder here...", FocusLost = true, ClearTextOnFocus = false, Callback = print})
-Section:AddDropdown({ Text = "Dropdown", Values = { "Option 1", "Option 2", "Option 3", "Option 4" }, Default ="Option 1", Multi = false, Callback = print })
-Section:AddDropdown({ Text = "Dropdown", Values = { "Option 1", "Option 2", "Option 3", "Option 4" }, Default ="Option 1", Multi = true, Callback = print })
-Section:AddDropdown({ Text = "Scrolling", Values = { "Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7", "Option 8", "Option 9", "Option 10", "Option 11", "Option 12", "Option 13" }, Default ="Option 1", Multi = false, Callback = print })
+-- Section:AddInput({Text = "Input", Placeholder = "Placeholder here...", FocusLost = true, ClearTextOnFocus = false, Callback = print})
+-- Section:AddDropdown({ Text = "Dropdown", Values = { "Option 1", "Option 2", "Option 3", "Option 4" }, Default ="Option 1", Multi = false, Callback = print })
+-- Section:AddDropdown({ Text = "Dropdown", Values = { "Option 1", "Option 2", "Option 3", "Option 4" }, Default ="Option 1", Multi = true, Callback = print })
+-- Section:AddDropdown({ Text = "Scrolling", Values = { "Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7", "Option 8", "Option 9", "Option 10", "Option 11", "Option 12", "Option 13" }, Default ="Option 1", Multi = false, Callback = print })
 
-Section:AddButton({Text = "Button1", Confirmation = true, print})
-Section:AddButton({Text = "Button1", print}):AddButton({Text = "Button2", print})
-Section:AddButton({Text = "Button1", print}):AddButton({Text = "Button2", print}):AddButton({Text = "Button3", print})
+-- Section:AddButton({Text = "Button1", Confirmation = true, print})
+-- Section:AddButton({Text = "Button1", print}):AddButton({Text = "Button2", print})
+-- Section:AddButton({Text = "Button1", print}):AddButton({Text = "Button2", print}):AddButton({Text = "Button3", print})
 
-Section:AddKeyPicker({Text = "Keypicker with a longer name", Key = Enum.KeyCode.E, Mode = "Toggle", Active = false, Callback = print})
-Section:AddKeyPicker({Text = "Short Name", Key = Enum.KeyCode.E, Mode = "Toggle", Active = false, Callback = print})
-Section:AddKeyPicker({Text = "Aimbot xyz", Key = Enum.KeyCode.E, Mode = "Toggle", Active = false, Callback = print})
-Section:AddLabel({Text = "This is a text label that can also be used as a paragraph. The quick brown fox jumps over the lazy dog.\nYou can also seperate lines\nLike this\nOr like this", Center = false})
+-- Section:AddKeyPicker({Text = "Keypicker with a longer name", Key = Enum.KeyCode.E, Mode = "Toggle", Active = false, Callback = print})
+-- Section:AddKeyPicker({Text = "Short Name", Key = Enum.KeyCode.E, Mode = "Toggle", Active = false, Callback = print})
+-- Section:AddKeyPicker({Text = "Aimbot xyz", Key = Enum.KeyCode.E, Mode = "Toggle", Active = false, Callback = print})
+-- Section:AddLabel({Text = "This is a text label that can also be used as a paragraph. The quick brown fox jumps over the lazy dog.\nYou can also seperate lines\nLike this\nOr like this", Center = false})
 
-Section:AddColorPicker({Text = "Colorpicker", Default = Color3.fromRGB(255, 0, 0), Transparency = 0.5, Flag = "Hello new flag"})
+-- Section:AddColorPicker({Text = "Colorpicker", Default = Color3.fromRGB(255, 0, 0), Transparency = 0.5, Flag = "Hello new flag"})
 
-local Section1, Section2, Section3 = Combat:AddMultiSection({Names = {"1", "2", "3"}, Side = 2})
-Section1:AddToggle({Text = "Enabled Toggle", Default = true, print })
-Section1:AddList({Options = {"Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7", "Option 8", "Option 9", "Option 10", "Option 11", "Option 12", "Option 13"}})
-Section1:AddButton({Text = "Test Notification", Callback = function()
-    Library:Notify({Text = "This is a notification!! awdojmpawdjwpaodjwapjdwaj", Lifetime = math.random(1, 10)})
-end})
+-- local Section1, Section2, Section3 = Combat:AddMultiSection({Names = {"1", "2", "3"}, Side = 2})
+-- Section1:AddToggle({Text = "Enabled Toggle", Default = true, print })
+-- Section1:AddList({Options = {"Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7", "Option 8", "Option 9", "Option 10", "Option 11", "Option 12", "Option 13"}})
+-- Section1:AddButton({Text = "Test Notification", Callback = function()
+--     Library:Notify({Text = "This is a notification!! awdojmpawdjwpaodjwapjdwaj", Lifetime = math.random(1, 10)})
+-- end})
 
 
-Window:InitPanels()
+-- Window:InitPanels()
 
-task.wait(Library.TweeningSpeed)
+-- task.wait(Library.TweeningSpeed)
 
-Library:AutoLoad()
+-- Library:AutoLoad()
 
-Window:UpdateViewer({
-    Name = "Jew",
-    DisplayName = "Faggot",
-    Money = 9999, 
-    Images = {
-        "rbxassetid://84266057792205", 
-        "rbxassetid://84266057792205", 
-        "rbxassetid://84266057792205", 
-        "rbxassetid://84266057792205"
-    }
-})
+-- Window:UpdateViewer({
+--     Name = "Jew",
+--     DisplayName = "Faggot",
+--     Money = 9999, 
+--     Images = {
+--         "rbxassetid://84266057792205", 
+--         "rbxassetid://84266057792205", 
+--         "rbxassetid://84266057792205", 
+--         "rbxassetid://84266057792205"
+--     }
+-- })
 
-task.wait(5)
+-- task.wait(5)
 
-Window:UpdateViewer({Clear = true})
+-- Window:UpdateViewer({Clear = true})
 
-task.wait(1)
+-- task.wait(1)
 
-Window:UpdateViewer({
-    Name = "new Jew",
-    DisplayName = "new",
-    Money = 9999, 
-    Images = {
-        "rbxassetid://84266057792205", 
-        "rbxassetid://84266057792205", 
-        "rbxassetid://84266057792205"
-    }
-})
+-- Window:UpdateViewer({
+--     Name = "new Jew",
+--     DisplayName = "new",
+--     Money = 9999, 
+--     Images = {
+--         "rbxassetid://84266057792205", 
+--         "rbxassetid://84266057792205", 
+--         "rbxassetid://84266057792205"
+--     }
+-- })
 
--- // If there is a new weapon added or something just use addimage. its in createwindow function 
+-- -- // If there is a new weapon added or something just use addimage. its in createwindow function 
 
--- // Target stats
+-- -- // Target stats
 
-Window:UpdateStatsProfile(Services.Players.LocalPlayer)
+-- Window:UpdateStatsProfile(Services.Players.LocalPlayer)
 
-task.spawn(function()
-    while true do Window:UpdateStats({Health = math.random(1, 100), MaxHealth = 100, Distance = 100}) task.wait(3) end
-end)
+-- task.spawn(function()
+--     while true do Window:UpdateStats({Health = math.random(1, 100), MaxHealth = 100, Distance = 100}) task.wait(3) end
+-- end)
 
--- // You can access it through Window.Items.TargetStats.Instance, with group transparency you can turn it on and off whenether you want.
+-- -- // You can access it through Window.Items.TargetStats.Instance, with group transparency you can turn it on and off whenether you want.
 
-task.spawn(function()
-    while true do 
-        local Mod = Window:AddMod("Ur mom (@ur fat)")
-        task.wait(1)
-        Mod:Remove()
-        task.wait(1)
-    end 
-end)
+-- task.spawn(function()
+--     while true do 
+--         local Mod = Window:AddMod("Ur mom (@ur fat)")
+--         task.wait(1)
+--         Mod:Remove()
+--         task.wait(1)
+--     end 
+-- end)
