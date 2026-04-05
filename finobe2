@@ -1143,14 +1143,11 @@ do
 					BorderSizePixel = 0,
 					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 				})
-				Items.Inline = Library:Create(
-					"UIStroke",
-					{
-						Color = Color3.fromRGB(50, 50, 50),
-						BorderOffset = UDim.new(0, -2),
-						Parent = Items.Alpha.Instance,
-					}
-				)
+				Items.Inline = Library:Create("UIStroke", {
+					Color = Color3.fromRGB(50, 50, 50),
+					BorderOffset = UDim.new(0, -2),
+					Parent = Items.Alpha.Instance,
+				})
 				Items.A = Library:Create("UIStroke", { Parent = Items.Alpha.Instance, BorderOffset = UDim.new(0, -1) })
 				Items.UIPadding = Library:Create("UIPadding", {
 					PaddingTop = UDim.new(0, 2),
@@ -3428,14 +3425,11 @@ do
 				)
 				Items.UIPadding =
 					Library:Create("UIPadding", { PaddingLeft = UDim.new(0, -1), Parent = Items.Username.Instance })
-				Items.UIListLayout = Library:Create(
-					"UIListLayout",
-					{
-						Parent = Items.Holder2.Instance,
-						Padding = UDim.new(0, 5),
-						SortOrder = Enum.SortOrder.LayoutOrder,
-					}
-				)
+				Items.UIListLayout = Library:Create("UIListLayout", {
+					Parent = Items.Holder2.Instance,
+					Padding = UDim.new(0, 5),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				})
 				Items.Distance = Library:Create("TextLabel", {
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextColor3 = Themes.Preset["TextColor"],
@@ -3548,14 +3542,11 @@ do
 					"UIStroke",
 					{ Parent = Items.HealthLabel.Instance, LineJoinMode = Enum.LineJoinMode.Miter }
 				)
-				Items.UIPadding = Library:Create(
-					"UIPadding",
-					{
-						PaddingBottom = UDim.new(0, 1),
-						PaddingLeft = UDim.new(0, 2),
-						Parent = Items.HealthLabel.Instance,
-					}
-				)
+				Items.UIPadding = Library:Create("UIPadding", {
+					PaddingBottom = UDim.new(0, 1),
+					PaddingLeft = UDim.new(0, 2),
+					Parent = Items.HealthLabel.Instance,
+				})
 				Items.UIPadding =
 					Library:Create("UIPadding", { Parent = Items.Holder3.Instance, PaddingTop = UDim.new(0, 1) })
 				Items.UIPadding = Library:Create("UIPadding", {
@@ -6053,10 +6044,10 @@ do
 				Section:AddKeyPicker({
 					Text = "Menu bind",
 					Mode = "Toggle",
-                    Key = Enum.KeyCode.RightShift,
+					Key = Enum.KeyCode.RightShift,
 					ShowInList = false,
 					Callback = function(Value)
-						Library.Window.SetVisible(Value)
+						Library.Window:SetMenuVisible(Value)
 					end,
 				})
 				Section:AddDropdown({
